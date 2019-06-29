@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.corba.se.pept.transport.ContactInfo;
-
+import command.*;
 import model.Arrow;
 import model.Char;
 import model.Composition;
@@ -21,7 +18,6 @@ import util.InsertImageEventArgs;
 import util.KeyPressedEventArgs;
 import util.MenuPressedEventArgs;
 import util.ViewEventArgs;
-import viewmodel.BorderedDocument;
 import viewmodel.ConcreteDocument;
 import viewmodel.Document;
 import viewmodel.ScrollableDocument;
@@ -29,17 +25,6 @@ import viewmodel.SelectionRange;
 import viewmodel.UiGlyph;
 import visitor.IVisitor;
 import visitor.SpellingCheckingVisitor;
-
-import command.CommandManager;
-import command.DecreaseFontSizeCommand;
-import command.DeleteCommand;
-import command.ICommand;
-import command.IncreaseFontSizeCommand;
-import command.InsertCommand;
-import command.LoadCommand;
-import command.SaveCommand;
-import command.ToggleBoldCommand;
-import command.ToggleItalicCommand;
 
 public class EditorController implements IEditorController, ISplleingErrorHandler{
 	
@@ -65,13 +50,21 @@ public class EditorController implements IEditorController, ISplleingErrorHandle
 		if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_ESCAPE){
 			this.selectionRange = null;
 		}
-		else if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_DELETE){			 			
+		else if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_DELETE
+				|| param.getKeyEvent().getKeyCode() == KeyEvent.VK_BACK_SPACE){
 			if (this.selectionRange != null){								
 				int startFrom = this.getStartFrom();
-				int endAt = this.getEndAt(); 
-				cmd = new DeleteCommand(document, startFrom, endAt);
+				int endAt = this.getEndAt();
+				if(endAt == 0 && startFrom > endAt) {
+					cmd = new DeleteCommand(document, startFrom - 1, startFrom);
+				} else {
+					cmd = new DeleteCommand(document, startFrom, endAt);
+				}
 				CommandManager.getInstance().execute(cmd);
 				this.selectionRange = null;
+			} else {
+				cmd = new DeleteTheLastCommand(document);
+				CommandManager.getInstance().execute(cmd);
 			}
 		}
 		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() == '+'  && param.getKeyEvent().getKeyCode() == 107) {
