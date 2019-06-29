@@ -307,7 +307,7 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 	
 	private void handleOpenMenuItemClick() {
 		JFileChooser fileChooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Xml files", "xml");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("text file", "xml", "txt");
 		fileChooser.setFileFilter(filter);
 		if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {			
 			this.controller.onLoadMenuItemClick(fileChooser.getSelectedFile().getAbsolutePath());

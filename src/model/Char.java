@@ -89,25 +89,25 @@ public class Char extends Glyph {
 
 	@Override
 	public Element toXmlElement(Document document) {
-		Element charElement = document.createElement(Constants.CharNodeName);
+		Element charElement = document.createElement(Constants.CHAR_NODE_NAME);
 		Element contentElement = document
-				.createElement(Constants.ContentString);
+				.createElement(Constants.CONTENT_STRING);
 		contentElement.appendChild(document.createTextNode(Character
 				.toString(this.getChar())));
 		charElement.appendChild(contentElement);
 
 		Element fontNameElement = document
-				.createElement(Constants.FontNodeName);
+				.createElement(Constants.FONT_NODE_NAME);
 
-		Attr name = document.createAttribute(Constants.FontNameAttributeName);
+		Attr name = document.createAttribute(Constants.FONT_NAME_ATTRIBUTE_NAME);
 		name.setValue(this.font.getName());
 		fontNameElement.setAttributeNode(name);
 
-		Attr style = document.createAttribute(Constants.FontStyleAttributeName);
+		Attr style = document.createAttribute(Constants.FONT_STYLE_ATTRIBUTE_NAME);
 		style.setValue(Integer.toString(this.font.getStyle()));
 		fontNameElement.setAttributeNode(style);
 
-		Attr size = document.createAttribute(Constants.FontSizeAttributeName);
+		Attr size = document.createAttribute(Constants.FONT_SIZE_ATTRIBUTE_NAME);
 		size.setValue(Integer.toString(this.font.getSize()));
 		fontNameElement.setAttributeNode(size);
 

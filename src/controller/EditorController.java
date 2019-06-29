@@ -12,12 +12,7 @@ import model.Composition;
 import model.Glyph;
 import model.Picture;
 import model.Row;
-import util.Constants;
-import util.ISplleingErrorHandler;
-import util.InsertImageEventArgs;
-import util.KeyPressedEventArgs;
-import util.MenuPressedEventArgs;
-import util.ViewEventArgs;
+import util.*;
 import viewmodel.ConcreteDocument;
 import viewmodel.Document;
 import viewmodel.ScrollableDocument;
@@ -186,7 +181,12 @@ public class EditorController implements IEditorController, ISplleingErrorHandle
 	}
 	
 	public void onLoadMenuItemClick(String filePath){
-		ICommand cmd = new LoadCommand(this.document, filePath);
+		ICommand cmd;
+		if(StringUtils.endsWith(filePath, ".xml")) {
+			cmd = new LoadCommand(this.document, filePath);
+		} else {
+			cmd = new LoadTxtCommand(this.document, filePath);
+		}
 		CommandManager.getInstance().execute(cmd);
 	}
 	

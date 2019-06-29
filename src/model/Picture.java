@@ -75,9 +75,9 @@ public class Picture extends Glyph {
 
 	@Override
 	public Element toXmlElement(Document document) {
-		Element picElement = document.createElement(Constants.PictureNodeName);
+		Element picElement = document.createElement(Constants.PICTURE_NODE_NAME);
 
-		Attr path = document.createAttribute(Constants.FilePathAttributeName);
+		Attr path = document.createAttribute(Constants.FILE_PATH_ATTRIBUTE_NAME);
 		path.setValue(this.fullFilePath);
 		picElement.setAttributeNode(path);
 
