@@ -15,6 +15,9 @@ public class DeleteTheLastCommand implements ICommand{
         try {
             int size = this.document.getChildren().size();
             theLastIndex = size - 1;
+            if(theLastIndex < 0) {
+                return false;
+            }
             theLast = document.getChildren().get(theLastIndex);
             document.remove(theLastIndex);
             return true;

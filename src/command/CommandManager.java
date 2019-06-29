@@ -4,22 +4,13 @@ import java.util.*;
 
 public class CommandManager {
 
-	private volatile static CommandManager instance;
-	private List<ICommand> commands = new ArrayList<ICommand>();
+	private List<ICommand> commands = new ArrayList<>();
 	private int current = -1;
 	
 	private CommandManager(){}
 	
 	public static CommandManager getInstance(){
-		if (instance == null){
-			synchronized (CommandManager.class) {
-				if (instance == null){
-					instance = new CommandManager();
-				}
-			}
-		}
-		
-		return instance;
+		return CommandManagerHolder.commandManager;
 	}
 	
 	public Boolean execute(ICommand cmd){
@@ -57,5 +48,12 @@ public class CommandManager {
 	
 	public Boolean canRedo(){
 		return this.current < (this.commands.size() - 1);
+	}
+
+	/**
+	 * singleton instance holder
+	 */
+	private static class CommandManagerHolder {
+		static final CommandManager commandManager = new CommandManager();
 	}
 }

@@ -1,8 +1,6 @@
 package ui.swing;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -13,12 +11,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.FileFilter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -26,13 +22,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import model.Composition;
 import model.ICompositor;
 import model.Row;
 import model.SimpleCompositor;
 import util.Constants;
-import util.IMainWindow;
 import util.IObserver;
 import util.InsertImageEventArgs;
 import util.KeyPressedEventArgs;
@@ -72,7 +66,14 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		
 		this.setTitle("Lexi - " + this.getNow());		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setBounds(100, 100, 200, 200);
+		//窗口定位到屏幕正中央
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = 400;
+		int height = 400;
+		int x = (int)(dimension.getWidth() - width) / 2;
+		int y = (int)(dimension.getHeight() - height) / 2;
+
+		this.setBounds(x, y, width, height);
 		this.setLayout(new BorderLayout());
 		
 		JMenuBar menuBar = new JMenuBar();		
