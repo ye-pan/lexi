@@ -5,27 +5,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
 import javax.imageio.ImageIO;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import util.Constants;
 import visitor.IVisitor;
 
 public class Picture extends Glyph {
 
 	private BufferedImage image;
-	private String fullFilePath;
-
-	/*
-	 * public Picture(BufferedImage image){ if (image == null){ throw new
-	 * NullPointerException("Image is null"); }
-	 * 
-	 * this.image = image; }
-	 */
+	private final String fullFilePath;
 
 	public Picture(String fullFilePath) {
 		this.fullFilePath = fullFilePath;
@@ -73,17 +59,6 @@ public class Picture extends Glyph {
 		return null;
 	}
 
-	@Override
-	public Element toXmlElement(Document document) {
-		Element picElement = document.createElement(Constants.PICTURE_NODE_NAME);
-
-		Attr path = document.createAttribute(Constants.FILE_PATH_ATTRIBUTE_NAME);
-		path.setValue(this.fullFilePath);
-		picElement.setAttributeNode(path);
-
-		return picElement;
-	}
-
 	private BufferedImage getImage() {
 		try {
 			if (this.image == null) {
@@ -94,5 +69,9 @@ public class Picture extends Glyph {
 		}
 
 		return this.image;
+	}
+
+	public String getFullFilePath() {
+		return fullFilePath;
 	}
 }

@@ -79,8 +79,4 @@ public class Arrow extends Glyph {
 	public Font getFont() {
 		return this.font;
 	}
-	
-	public Element toXmlElement(Document document) {
-		return null;
-	}
 }

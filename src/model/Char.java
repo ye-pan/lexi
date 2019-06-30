@@ -5,12 +5,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import util.Constants;
 import visitor.IVisitor;
 
 public class Char extends Glyph {
@@ -85,34 +79,6 @@ public class Char extends Glyph {
 	@Override
 	public Font getFont() {
 		return this.font;
-	}
-
-	@Override
-	public Element toXmlElement(Document document) {
-		Element charElement = document.createElement(Constants.CHAR_NODE_NAME);
-		Element contentElement = document
-				.createElement(Constants.CONTENT_STRING);
-		contentElement.appendChild(document.createTextNode(Character
-				.toString(this.getChar())));
-		charElement.appendChild(contentElement);
-
-		Element fontNameElement = document
-				.createElement(Constants.FONT_NODE_NAME);
-
-		Attr name = document.createAttribute(Constants.FONT_NAME_ATTRIBUTE_NAME);
-		name.setValue(this.font.getName());
-		fontNameElement.setAttributeNode(name);
-
-		Attr style = document.createAttribute(Constants.FONT_STYLE_ATTRIBUTE_NAME);
-		style.setValue(Integer.toString(this.font.getStyle()));
-		fontNameElement.setAttributeNode(style);
-
-		Attr size = document.createAttribute(Constants.FONT_SIZE_ATTRIBUTE_NAME);
-		size.setValue(Integer.toString(this.font.getSize()));
-		fontNameElement.setAttributeNode(size);
-
-		charElement.appendChild(fontNameElement);
-		return charElement;
 	}
 
 	public int getCharacterCode() {

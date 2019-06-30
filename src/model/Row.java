@@ -5,15 +5,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import viewmodel.UiGlyph;
 import visitor.IVisitor;
 
 public class Row extends Glyph {
 
+	public final static int newLineGap = 0;
 	private int startIndex;
 	private int endIndex;
 	private int left;
@@ -37,7 +34,7 @@ public class Row extends Glyph {
 			}
 		}
 
-		return height + util.Constants.newLineGap;
+		return height + newLineGap;
 	}
 
 	@Override
@@ -119,9 +116,5 @@ public class Row extends Glyph {
 
 	public void setTop(int top) {
 		this.top = top;
-	}
-	
-	public Element toXmlElement(Document document) {
-		return null;
 	}
 }

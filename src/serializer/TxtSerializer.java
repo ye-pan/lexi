@@ -5,10 +5,7 @@ import model.Composition;
 import util.StringUtils;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class TxtSerializer extends AbstractFileSerializer {
 
@@ -17,13 +14,13 @@ public class TxtSerializer extends AbstractFileSerializer {
     }
 
     @Override
-    protected void encode(Composition document, File file) {
-        //TODO 待实现
+    protected void encode(Composition document, OutputStream out) {
+        throw new UnsupportedOperationException("serializer.TxtSerializer.encode TODO");
     }
 
     @Override
-    protected void decode(Composition document, File file) {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+    protected void decode(Composition document, InputStream in) throws Exception {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             String line = reader.readLine();
             while(StringUtils.isNotEmpty(line)) {
                 for (char c : line.toCharArray()) {
@@ -33,8 +30,6 @@ public class TxtSerializer extends AbstractFileSerializer {
                 }
                 line = reader.readLine();
             }
-        } catch(Exception e) {
-            throw new RuntimeException("读取文件错误.", e);
         }
     }
 }

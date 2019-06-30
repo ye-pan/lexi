@@ -129,24 +129,24 @@ public class EditorController implements IEditorController, ISplleingErrorHandle
 	
 	@Override
 	public void onMenuItemPressed(MenuPressedEventArgs param){
-		if (param.getMenuItem().getText() == Constants.ScrollOnText){
+		if (param.getMenuItem().getText() == Buttons.SCROLL_ON_TEXT){
 			// turn on scrolling
 			List<Row> rows = this.logicalDocument.getRows();
 			this.logicalDocument = new ScrollableDocument(this.logicalDocument);
 			// this.logicalDocument = new BorderedDocument(new ScrollableDocument(this.logicalDocument));
 			this.logicalDocument.setRows(rows);			
 		}
-		else if (param.getMenuItem().getText() == Constants.ScrollOffText) {
+		else if (param.getMenuItem().getText() == Buttons.SCROLL_OFF_TEXT) {
 			// turn scrolling off
 			List<Row> rows = this.logicalDocument.getRows();
 			this.logicalDocument = new ConcreteDocument();
 			this.logicalDocument.setRows(rows);
 			this.index = 0;
 		}
-		else if (param.getMenuItem().getText() == Constants.SpellCheckOnText){
+		else if (param.getMenuItem().getText() == Buttons.SPELL_CHECK_ON_TEST){
 			this.spellCheckEnabled = true;
 		}
-		else if (param.getMenuItem().getText() == Constants.SpellCheckOffText){
+		else if (param.getMenuItem().getText() == Buttons.SPELL_CHECK_OFF_TEST){
 			this.spellCheckEnabled = false;
 			this.misspelledGlyphs = null;
 		}

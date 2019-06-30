@@ -26,14 +26,7 @@ import model.Composition;
 import model.ICompositor;
 import model.Row;
 import model.SimpleCompositor;
-import util.Constants;
-import util.IObserver;
-import util.InsertImageEventArgs;
-import util.KeyPressedEventArgs;
-import util.MenuPressedEventArgs;
-import util.ModelChangedEventArgs;
-import util.SpellChecker;
-import util.ViewEventArgs;
+import util.*;
 import viewmodel.SelectionRange;
 import viewmodel.UiGlyph;
 import controller.EditorController;
@@ -82,11 +75,11 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		this.saveMenuItem = new JMenuItem(Constants.SaveText);
+		this.saveMenuItem = new JMenuItem(Buttons.SAVE_TEXT);
 		this.saveMenuItem.addActionListener(this);
 		mnFile.add(this.saveMenuItem);
 		
-		this.openMenuItem = new JMenuItem(Constants.OpenText);
+		this.openMenuItem = new JMenuItem(Buttons.OPEN_TEXT);
 		this.openMenuItem.addActionListener(this);
 		mnFile.add(this.openMenuItem);
 		
@@ -94,11 +87,11 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		this.imageMenuItem.addActionListener(this);
 		mnFile.add(imageMenuItem);		
 		
-		this.scrollMenuItem = new JMenuItem(Constants.ScrollOnText);
+		this.scrollMenuItem = new JMenuItem(Buttons.SCROLL_ON_TEXT);
 		this.scrollMenuItem.addActionListener(this);
 		mnFile.add(this.scrollMenuItem);
 		
-		this.spellCheckMenuItem = new JMenuItem(Constants.SpellCheckOnText);
+		this.spellCheckMenuItem = new JMenuItem(Buttons.SPELL_CHECK_ON_TEST);
 		this.spellCheckMenuItem.addActionListener(this);
 		mnFile.add(this.spellCheckMenuItem);
 	
@@ -246,11 +239,11 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 	
 	private void handleScrolling(){
 		this.controller.onMenuItemPressed(new MenuPressedEventArgs(this.scrollMenuItem));
-		if (this.scrollMenuItem.getText() == Constants.ScrollOffText){
-			this.scrollMenuItem.setText(Constants.ScrollOnText);			
+		if (this.scrollMenuItem.getText() == Buttons.SCROLL_OFF_TEXT){
+			this.scrollMenuItem.setText(Buttons.SCROLL_ON_TEXT);
 		}
 		else{
-			this.scrollMenuItem.setText(Constants.ScrollOffText);
+			this.scrollMenuItem.setText(Buttons.SCROLL_OFF_TEXT);
 		}
 		
 		this.repaint();
@@ -258,11 +251,11 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 	
 	private void handleSpellChecking(){
 		this.controller.onMenuItemPressed(new MenuPressedEventArgs(this.spellCheckMenuItem));
-		if (this.spellCheckMenuItem.getText() == Constants.SpellCheckOffText){
-			this.spellCheckMenuItem.setText(Constants.SpellCheckOnText);
+		if (this.spellCheckMenuItem.getText() == Buttons.SPELL_CHECK_OFF_TEST){
+			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_ON_TEST);
 		}
 		else{
-			this.spellCheckMenuItem.setText(Constants.SpellCheckOffText);
+			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_OFF_TEST);
 		}
 		
 		this.repaint();

@@ -6,7 +6,7 @@ import java.util.List;
 import serializer.Decoder;
 import serializer.Encoder;
 import serializer.TxtSerializer;
-import serializer.XmlSerializer;
+import serializer.xml.DocumentSerializer;
 import util.*;
 
 public class Composition implements ISubject {
@@ -73,12 +73,12 @@ public class Composition implements ISubject {
 	}
 
 	public void saveToFile(String filePath) throws Exception {
-		Encoder encoder = new XmlSerializer(filePath);
+		Encoder encoder = new DocumentSerializer(filePath);
 		encoder.encode(this);
 	}
 
 	public void loadFromFile(String filePath) throws Exception {
-		Decoder decoder = new XmlSerializer(filePath);
+		Decoder decoder = new DocumentSerializer(filePath);
 		decoder.decode(this);
 	}
 
