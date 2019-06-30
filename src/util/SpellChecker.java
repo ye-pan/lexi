@@ -7,19 +7,10 @@ import java.util.Map;
 
 public class SpellChecker {
 	
-	private volatile static SpellChecker instance;
 	private Map<String, String> dictionary = new HashMap<String, String>();
 	
 	public static SpellChecker getInstance(){
-		if (instance == null){
-			synchronized (SpellChecker.class) {
-				if (instance == null){
-					instance = new SpellChecker();
-				}
-			}
-		}
-		
-		return instance;
+		return SpellCheckerHolder.INSTANCE;
 	}
 	
 	public void LoadDictionary(String dictionaryPath){
@@ -37,5 +28,9 @@ public class SpellChecker {
 	
 	public Boolean isMisspelled(String word){
 		return !this.dictionary.containsKey(word);
+	}
+
+	private static class SpellCheckerHolder {
+		public static final SpellChecker INSTANCE = new SpellChecker();
 	}
 }

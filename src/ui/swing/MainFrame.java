@@ -91,7 +91,7 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		this.scrollMenuItem.addActionListener(this);
 		mnFile.add(this.scrollMenuItem);
 		
-		this.spellCheckMenuItem = new JMenuItem(Buttons.SPELL_CHECK_ON_TEST);
+		this.spellCheckMenuItem = new JMenuItem(Buttons.SPELL_CHECK_ON_TEXT);
 		this.spellCheckMenuItem.addActionListener(this);
 		mnFile.add(this.spellCheckMenuItem);
 	
@@ -239,7 +239,7 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 	
 	private void handleScrolling(){
 		this.controller.onMenuItemPressed(new MenuPressedEventArgs(this.scrollMenuItem));
-		if (this.scrollMenuItem.getText() == Buttons.SCROLL_OFF_TEXT){
+		if (StringUtils.equals(scrollMenuItem.getText(), Buttons.SCROLL_OFF_TEXT)){
 			this.scrollMenuItem.setText(Buttons.SCROLL_ON_TEXT);
 		}
 		else{
@@ -251,11 +251,11 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 	
 	private void handleSpellChecking(){
 		this.controller.onMenuItemPressed(new MenuPressedEventArgs(this.spellCheckMenuItem));
-		if (this.spellCheckMenuItem.getText() == Buttons.SPELL_CHECK_OFF_TEST){
-			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_ON_TEST);
+		if (StringUtils.equals(spellCheckMenuItem.getText(), Buttons.SPELL_CHECK_OFF_TEXT)){
+			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_ON_TEXT);
 		}
 		else{
-			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_OFF_TEST);
+			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_OFF_TEXT);
 		}
 		
 		this.repaint();

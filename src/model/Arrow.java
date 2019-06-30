@@ -4,13 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import visitor.IVisitor;
 
-public class Arrow extends Glyph {
+public class Arrow implements Glyph {
 
 	private String str;
 	private Font font;

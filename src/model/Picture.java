@@ -8,7 +8,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import visitor.IVisitor;
 
-public class Picture extends Glyph {
+public class Picture implements Glyph {
 
 	private BufferedImage image;
 	private final String fullFilePath;

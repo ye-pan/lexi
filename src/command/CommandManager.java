@@ -10,7 +10,7 @@ public class CommandManager {
 	private CommandManager(){}
 	
 	public static CommandManager getInstance(){
-		return CommandManagerHolder.commandManager;
+		return CommandManagerHolder.INSTANCE;
 	}
 	
 	public Boolean execute(ICommand cmd){
@@ -50,10 +50,7 @@ public class CommandManager {
 		return this.current < (this.commands.size() - 1);
 	}
 
-	/**
-	 * singleton instance holder
-	 */
 	private static class CommandManagerHolder {
-		static final CommandManager commandManager = new CommandManager();
+		static final CommandManager INSTANCE = new CommandManager();
 	}
 }

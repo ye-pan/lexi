@@ -8,7 +8,7 @@ import java.util.List;
 import viewmodel.UiGlyph;
 import visitor.IVisitor;
 
-public class Row extends Glyph {
+public class Row implements Glyph {
 
 	public final static int newLineGap = 0;
 	private int startIndex;
