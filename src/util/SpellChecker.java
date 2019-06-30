@@ -13,11 +13,9 @@ public class SpellChecker {
 		return SpellCheckerHolder.INSTANCE;
 	}
 	
-	public void LoadDictionary(String dictionaryPath){
-		BufferedReader reader =  null;
-		try {
+	public void loadDictionary(String dictionaryPath){
+		try (BufferedReader reader = new BufferedReader(new FileReader(dictionaryPath))){
 			String word;
-			reader = new BufferedReader(new FileReader(dictionaryPath));
 			while ((word = reader.readLine()) != null) {
 				this.dictionary.put(word, word);
 			}
@@ -31,6 +29,6 @@ public class SpellChecker {
 	}
 
 	private static class SpellCheckerHolder {
-		public static final SpellChecker INSTANCE = new SpellChecker();
+		static final SpellChecker INSTANCE = new SpellChecker();
 	}
 }

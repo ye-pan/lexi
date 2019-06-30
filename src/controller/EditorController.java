@@ -40,8 +40,8 @@ public class EditorController implements IEditorController, ISplleingErrorHandle
 
 	@Override
 	public void onKeyPressed(KeyPressedEventArgs param) {
-		Glyph glyph = null;
-		ICommand cmd = null;		
+		Glyph glyph;
+		ICommand cmd;
 		if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_ESCAPE){
 			this.selectionRange = null;
 		}
@@ -110,11 +110,15 @@ public class EditorController implements IEditorController, ISplleingErrorHandle
 					index += 1;					
 				}
 			}			
+		} else if(param.getKeyEvent().isShiftDown()
+				|| param.getKeyEvent().isAltDown()
+				|| (param.getKeyEvent().getKeyCode() == KeyEvent.VK_CAPS_LOCK)) {
+			//Shift，Alt，CapsLock 忽略
 		}
 		else {
 			if (!param.getKeyEvent().isControlDown()){				
 					glyph = new Char(param.getKeyEvent().getKeyChar(), param.getFont());
-					this.InsertGlyph(glyph);
+					this.insertGlyph(glyph);
 					this.selectionRange = null;
 			}
 		}
@@ -123,7 +127,7 @@ public class EditorController implements IEditorController, ISplleingErrorHandle
 	@Override
 	public void onImageInserted(InsertImageEventArgs param) {
 		Glyph glyph = new Picture(param.getFilePath());
-		this.InsertGlyph(glyph);
+		this.insertGlyph(glyph);
 		this.selectionRange = null;
 	}
 	
@@ -270,7 +274,7 @@ public class EditorController implements IEditorController, ISplleingErrorHandle
 		this.index = 0;
 	}
 	
-	private void InsertGlyph(Glyph glyph){
+	private void insertGlyph(Glyph glyph){
 		ICommand cmd = null;
 		int physicalIndex = Integer.MIN_VALUE;
 		if (this.selectionRange == null){

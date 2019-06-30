@@ -119,7 +119,7 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		this.graphics = this.getGraphics();
 		this.controller.setGraphics(graphics);
 		
-		SpellChecker.getInstance().LoadDictionary("./dictionary/american-english");
+		SpellChecker.getInstance().loadDictionary("./dictionary/american-english");
 	}	
 
 	@Override

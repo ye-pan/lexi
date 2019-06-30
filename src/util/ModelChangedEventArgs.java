@@ -1,7 +1,7 @@
 package util;
 
 import java.util.*;
-import model.*;;
+import model.*;
 
 public class ModelChangedEventArgs {
 	

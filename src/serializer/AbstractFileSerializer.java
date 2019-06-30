@@ -1,8 +1,6 @@
 package serializer;
 
 import model.Composition;
-import serializer.Decoder;
-import serializer.Encoder;
 import util.StringUtils;
 
 import java.io.*;
@@ -34,8 +32,9 @@ public abstract class AbstractFileSerializer implements Encoder, Decoder {
     @Override
     public void encode(Composition document) {
         File file = new File(filePath);
-        if(!file.exists()) {
-            throw new IllegalStateException("File not exists!");
+        if(file.exists()) {
+            //TODO 已经存在的文件提示是否覆盖
+            throw new IllegalStateException("文件已经存在!");
         }
         try (FileOutputStream out = new FileOutputStream(file)) {
             encode(document, out);
