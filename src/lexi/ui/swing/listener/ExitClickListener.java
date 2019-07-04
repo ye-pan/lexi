@@ -1,4 +1,4 @@
-package lexi.ui.listener;
+package lexi.ui.swing.listener;
 
 import lexi.model.Composition;
 import lexi.ui.swing.MainFrame;

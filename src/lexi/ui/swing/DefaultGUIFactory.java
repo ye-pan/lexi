@@ -1,9 +1,8 @@
-package lexi.ui;
+package lexi.ui.swing;
 
 import lexi.controller.EditorController;
 import lexi.model.Composition;
-import lexi.ui.listener.*;
-import lexi.ui.swing.MainFrame;
+import lexi.ui.swing.listener.*;
 import lexi.util.i18n.MessageResource;
 import lexi.util.i18n.ResourceBundleMessageResource;
 

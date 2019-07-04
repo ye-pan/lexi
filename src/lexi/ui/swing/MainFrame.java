@@ -17,8 +17,6 @@ import lexi.model.Composition;
 import lexi.model.ICompositor;
 import lexi.model.Row;
 import lexi.model.SimpleCompositor;
-import lexi.ui.DefaultGUIFactory;
-import lexi.ui.GUIFactory;
 import lexi.util.*;
 import lexi.viewmodel.SelectionRange;
 import lexi.viewmodel.UiGlyph;

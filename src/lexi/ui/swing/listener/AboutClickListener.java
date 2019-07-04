@@ -1,4 +1,4 @@
-package lexi.ui.listener;
+package lexi.ui.swing.listener;
 
 import javax.swing.*;
 import java.awt.*;

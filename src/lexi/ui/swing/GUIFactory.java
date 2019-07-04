@@ -1,4 +1,4 @@
-package lexi.ui;
+package lexi.ui.swing;
 
 import lexi.controller.EditorController;
 import lexi.model.Composition;

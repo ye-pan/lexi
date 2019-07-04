@@ -1,4 +1,4 @@
-package lexi.ui.listener;
+package lexi.ui.swing.listener;
 
 import lexi.controller.EditorController;
 
@@ -8,11 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SaveClickListener implements ActionListener  {
+public class OpenClickListener implements ActionListener {
+
     private Component component;
     private EditorController controller;
 
-    public SaveClickListener(Component component, EditorController controller) {
+    public OpenClickListener(Component component, EditorController controller) {
         this.component = component;
         this.controller = controller;
     }
@@ -20,10 +21,10 @@ public class SaveClickListener implements ActionListener  {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Xml files", "xml");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("text file", "xml", "txt");
         fileChooser.setFileFilter(filter);
-        if (fileChooser.showSaveDialog(component) == JFileChooser.APPROVE_OPTION) {
-            this.controller.onSaveMenuItemClick(fileChooser.getSelectedFile().getAbsolutePath());
+        if (fileChooser.showOpenDialog(component) == JFileChooser.APPROVE_OPTION) {
+            this.controller.onLoadMenuItemClick(fileChooser.getSelectedFile().getAbsolutePath());
         }
     }
 }
