@@ -1,8 +1,6 @@
 package ui.swing;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -11,43 +9,32 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Composition;
 import model.ICompositor;
 import model.Row;
 import model.SimpleCompositor;
+import ui.DefaultGUIFactory;
+import ui.GUIFactory;
 import util.*;
 import viewmodel.SelectionRange;
 import viewmodel.UiGlyph;
 import controller.EditorController;
 
-public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, ComponentListener, ActionListener, IObserver, WindowListener, MouseListener{
+public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, ComponentListener, IObserver, WindowListener, MouseListener{
 		
 	private static final int TOP_MARGIN = 20;
 	private static final int LEFT_MARGIN = 5;
 	private Graphics graphics;
 	private EditorController controller;
 	private Composition document;
-	private JFileChooser jFileChooser;
-	private JMenuItem imageMenuItem;
-	private JMenuItem aboutMenuItem;
-	private JMenuItem exitMenuItem;
-	private JMenuItem scrollMenuItem;
-	private JMenuItem spellCheckMenuItem;
-	private JMenuItem saveMenuItem;
-	private JMenuItem openMenuItem;
 	private ICompositor compositor;
 	private int x1, y1, x2, y2;
+
+	private GUIFactory guiFactory;
 	
 	public MainFrame(Composition document, EditorController controller){		
 		super();		
@@ -56,8 +43,9 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		this.controller = controller;
 		this.document.registerObserver(this);
 		this.compositor = new SimpleCompositor();
+		this.guiFactory = DefaultGUIFactory.getInstance();
 		
-		this.setTitle("Lexi - " + this.getNow());		
+		this.setTitle("Lexi");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//窗口定位到屏幕正中央
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -69,43 +57,15 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		this.setBounds(x, y, width, height);
 		this.setLayout(new BorderLayout());
 		
-		JMenuBar menuBar = new JMenuBar();		
+		JMenuBar menuBar = guiFactory.createJmenuBar();
 		this.setJMenuBar(menuBar);
 		
-		JMenu mnFile = new JMenu("File");
+		JMenu mnFile = guiFactory.createMainMenu(this, controller, document);
 		menuBar.add(mnFile);
-		
-		this.saveMenuItem = new JMenuItem(Buttons.SAVE_TEXT);
-		this.saveMenuItem.addActionListener(this);
-		mnFile.add(this.saveMenuItem);
-		
-		this.openMenuItem = new JMenuItem(Buttons.OPEN_TEXT);
-		this.openMenuItem.addActionListener(this);
-		mnFile.add(this.openMenuItem);
-		
-		this.imageMenuItem = new JMenuItem("Insert Image");
-		this.imageMenuItem.addActionListener(this);
-		mnFile.add(imageMenuItem);		
-		
-		this.scrollMenuItem = new JMenuItem(Buttons.SCROLL_ON_TEXT);
-		this.scrollMenuItem.addActionListener(this);
-		mnFile.add(this.scrollMenuItem);
-		
-		this.spellCheckMenuItem = new JMenuItem(Buttons.SPELL_CHECK_ON_TEXT);
-		this.spellCheckMenuItem.addActionListener(this);
-		mnFile.add(this.spellCheckMenuItem);
-	
-		this.exitMenuItem = new JMenuItem("Exit");
-		this.exitMenuItem.addActionListener(this);
-		mnFile.add(exitMenuItem);
-		
-		JMenu mnHelp = new JMenu("Help");
+
+		JMenu mnHelp = guiFactory.createHelpMenu(this);
 		menuBar.add(mnHelp);
 		
-		this.aboutMenuItem = new JMenuItem("About");
-		this.aboutMenuItem.addActionListener(this);
-		mnHelp.add(aboutMenuItem);
-				
 		this.addKeyListener(this);
 		this.addComponentListener(this);
 		this.addWindowListener(this);
@@ -118,9 +78,7 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		
 		this.graphics = this.getGraphics();
 		this.controller.setGraphics(graphics);
-		
-		SpellChecker.getInstance().loadDictionary("./dictionary/american-english");
-	}	
+	}
 
 	@Override
 	public void componentResized(ComponentEvent e) {	
@@ -177,33 +135,7 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		this.controller.handleDrawing(rows, param);
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {		
-		if (e.getSource().equals(this.imageMenuItem)){
-			this.onInsertImageMenuItemClick(e);
-		}
-		else if (e.getSource().equals(this.scrollMenuItem)){
-			this.handleScrolling();
-		}
-		else if (e.getSource().equals(this.spellCheckMenuItem)){
-			this.handleSpellChecking();
-		}
-		else if (e.getSource().equals(this.aboutMenuItem)){
-			JOptionPane.showMessageDialog(this, "Lext editor implementation\nDeveloper: Amit Dutta" +
-					"\nEmail: adutta@cis.uab.edu\nWeb: http://www.amitdutta.net", "Lexi", JOptionPane.INFORMATION_MESSAGE);
-		}
-		else if (e.getSource().equals(this.exitMenuItem)){
-			this.document.removeObserver(this);
-			this.dispose();
-		}
-		else if (e.getSource().equals(this.saveMenuItem)) {
-			this.handleSaveMenuItemClick();
-		}
-		else if (e.getSource().equals(this.openMenuItem)) {
-			this.handleOpenMenuItemClick();
-		}
-	}
-	
+
 	@Override
 	public void windowOpened(WindowEvent e) {
 	}
@@ -237,80 +169,10 @@ public class MainFrame extends JFrame implements ui.IMainFrame, KeyListener, Com
 		// TODO Auto-generated method stub
 	}
 	
-	private void handleScrolling(){
-		this.controller.onMenuItemPressed(new MenuPressedEventArgs(this.scrollMenuItem));
-		if (StringUtils.equals(scrollMenuItem.getText(), Buttons.SCROLL_OFF_TEXT)){
-			this.scrollMenuItem.setText(Buttons.SCROLL_ON_TEXT);
-		}
-		else{
-			this.scrollMenuItem.setText(Buttons.SCROLL_OFF_TEXT);
-		}
-		
-		this.repaint();
-	}
-	
-	private void handleSpellChecking(){
-		this.controller.onMenuItemPressed(new MenuPressedEventArgs(this.spellCheckMenuItem));
-		if (StringUtils.equals(spellCheckMenuItem.getText(), Buttons.SPELL_CHECK_OFF_TEXT)){
-			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_ON_TEXT);
-		}
-		else{
-			this.spellCheckMenuItem.setText(Buttons.SPELL_CHECK_OFF_TEXT);
-		}
-		
-		this.repaint();
-	}
-	
-	private String getNow(){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-	
-	private JFileChooser getJFileChooser(){
-		if (this.jFileChooser == null){
-			this.jFileChooser = new JFileChooser();			
-		}
-		
-		return this.jFileChooser;
-	}
-	
-	private void onInsertImageMenuItemClick(ActionEvent evt){
-		if(this.getJFileChooser().showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-			try {
-				String fullFilePath = this.getJFileChooser().getSelectedFile().getAbsolutePath();
-				InsertImageEventArgs args = new InsertImageEventArgs(this.getGraphics(), this.getTop(), this.getLeft(), this.getContentPane().getWidth(),
-						this.getContentPane().getHeight(), fullFilePath);
-				this.controller.onImageInserted(args);
-				
-			}catch (Exception ex){
-				ex.printStackTrace();				
-			}
-		}
-	}
-	
-	private void handleSaveMenuItemClick() {
-		JFileChooser fileChooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Xml files", "xml");
-		fileChooser.setFileFilter(filter);
-		if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-			this.controller.onSaveMenuItemClick(fileChooser.getSelectedFile().getAbsolutePath());
-		}
-	}
-	
-	private void handleOpenMenuItemClick() {
-		JFileChooser fileChooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("text file", "xml", "txt");
-		fileChooser.setFileFilter(filter);
-		if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {			
-			this.controller.onLoadMenuItemClick(fileChooser.getSelectedFile().getAbsolutePath());
-		}
-	}
-	
 	private int getLeft(){
 		return this.getInsets().left + LEFT_MARGIN;
 	}
-	
+
 	private int getTop(){
 		return this.getInsets().top + this.getJMenuBar().getHeight() + TOP_MARGIN;
 	}
