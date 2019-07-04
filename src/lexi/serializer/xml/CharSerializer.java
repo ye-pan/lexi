@@ -2,12 +2,11 @@ package lexi.serializer.xml;
 
 import lexi.model.Char;
 import org.w3c.dom.*;
-import lexi.serializer.GlyphDecoder;
-import lexi.serializer.GlyphEncoder;
+import lexi.serializer.GlyphCoder;
 
 import java.awt.*;
 
-public class CharSerializer implements GlyphDecoder<Char, Element>, GlyphEncoder<Element, Char> {
+public class CharSerializer implements GlyphCoder<Element, Char> {
     private Document document;
     public CharSerializer(Document document) {
         this.document = document;

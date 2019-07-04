@@ -4,11 +4,10 @@ import lexi.model.Picture;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import lexi.serializer.GlyphDecoder;
-import lexi.serializer.GlyphEncoder;
+import lexi.serializer.GlyphCoder;
 
 
-public class PictureSerializer implements GlyphEncoder<Element, Picture>, GlyphDecoder<Picture, Element> {
+public class PictureSerializer implements GlyphCoder<Element, Picture> {
     private Document document;
     public PictureSerializer(Document document) {
         this.document = document;

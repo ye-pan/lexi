@@ -3,6 +3,9 @@ package lexi.util;
 import java.util.Objects;
 
 public class StringUtils {
+    private StringUtils() {
+        throw new UnsupportedOperationException();
+    }
     public static boolean isEmpty(String str) {
         return (str == null || str.length() == 0);
     }

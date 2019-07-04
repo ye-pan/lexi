@@ -2,8 +2,6 @@ package lexi.ui.swing;
 
 import lexi.controller.EditorController;
 import lexi.model.Composition;
-import lexi.ui.swing.MainFrame;
-
 import javax.swing.*;
 
 public interface GUIFactory {
