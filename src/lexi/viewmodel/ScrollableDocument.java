@@ -2,6 +2,7 @@ package lexi.viewmodel;
 
 import java.util.List;
 
+import lexi.model.Row;
 import lexi.util.ViewEventArgs;
 
 public class ScrollableDocument extends Document{

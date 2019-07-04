@@ -1,10 +1,14 @@
 package lexi.visitor;
 
-public abstract class IVisitor {
+import lexi.model.Char;
+import lexi.model.Picture;
+import lexi.model.Row;
 
-	public abstract void visitChar(Char ch);
+public interface IVisitor {
 
-	public abstract void visitPicture(Picture picture);
+	void visitChar(Char ch);
 
-	public abstract void visitRow(Row row);
+	void visitPicture(Picture picture);
+
+	void visitRow(Row row);
 }

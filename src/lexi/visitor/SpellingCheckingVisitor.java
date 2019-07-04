@@ -3,11 +3,15 @@ package lexi.visitor;
 import java.util.ArrayList;
 import java.util.List;
 
+import lexi.model.Char;
+import lexi.model.Glyph;
+import lexi.model.Picture;
+import lexi.model.Row;
 import lexi.util.ISplleingErrorHandler;
 import lexi.util.SpellChecker;
 import lexi.viewmodel.UiGlyph;
 
-public class SpellingCheckingVisitor extends IVisitor {
+public class SpellingCheckingVisitor implements IVisitor {
 
 	private StringBuffer currentWord;
 	private List<Glyph> currentGlyphs;

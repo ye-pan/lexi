@@ -1,5 +1,7 @@
 package lexi.viewmodel;
 
+import lexi.model.Glyph;
+
 import java.awt.Point;
 
 public class UiGlyph {

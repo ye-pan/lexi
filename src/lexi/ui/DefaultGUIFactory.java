@@ -4,11 +4,19 @@ import lexi.controller.EditorController;
 import lexi.model.Composition;
 import lexi.ui.listener.*;
 import lexi.ui.swing.MainFrame;
-import lexi.util.Buttons;
+import lexi.util.i18n.MessageResource;
+import lexi.util.i18n.ResourceBundleMessageResource;
 
 import javax.swing.*;
 
 public class DefaultGUIFactory implements GUIFactory {
+
+    private MessageResource message;
+
+    public DefaultGUIFactory() {
+        this.message = ResourceBundleMessageResource.getInstance();
+    }
+
     @Override
     public JMenuBar createJmenuBar() {
         return new JMenuBar();
@@ -30,28 +38,28 @@ public class DefaultGUIFactory implements GUIFactory {
 
     @Override
     public JMenu createMainMenu(MainFrame frame, EditorController controller, Composition document) {
-        JMenu menu = createJMenu("File");
-        JMenuItem saveMenuItem = createJMenuItem(Buttons.SAVE_TEXT);
+        JMenu menu = createJMenu(message.get("menu.file"));
+        JMenuItem saveMenuItem = createJMenuItem(message.get("menu.file.items.save"));
         saveMenuItem.addActionListener(new SaveClickListener(frame, controller));
         menu.add(saveMenuItem);
 
-        JMenuItem openMenuItem = createJMenuItem(Buttons.OPEN_TEXT);
+        JMenuItem openMenuItem = createJMenuItem(message.get("menu.file.items.open"));
         openMenuItem.addActionListener(new OpenClickListener(frame, controller));
         menu.add(openMenuItem);
 
-        JMenuItem imageMenuItem = createJMenuItem("Insert Image");
+        JMenuItem imageMenuItem = createJMenuItem(message.get("menu.file.items.insertImage"));
         imageMenuItem.addActionListener(new InsertImageClickListener(frame, controller));
         menu.add(imageMenuItem);
 
-        JMenuItem scrollMenuItem = createJMenuItem(Buttons.SCROLL_ON_TEXT);
+        JMenuItem scrollMenuItem = createJMenuItem(message.get("menu.file.items.scroll.on"));
         scrollMenuItem.addActionListener(new ScorllClickListener(frame, controller));
         menu.add(scrollMenuItem);
 
-        JMenuItem spellCheckMenuItem = createJMenuItem(Buttons.SPELL_CHECK_ON_TEXT);
+        JMenuItem spellCheckMenuItem = createJMenuItem(message.get("menu.file.items.spellCheck.on"));
         spellCheckMenuItem.addActionListener(new SpellCheckClickListener(frame, controller));
         menu.add(spellCheckMenuItem);
 
-        JMenuItem exitMenuItem = createJMenuItem("Exit");
+        JMenuItem exitMenuItem = createJMenuItem(message.get("menu.file.items.exit"));
         exitMenuItem.addActionListener(new ExitClickListener(frame, document));
         menu.add(exitMenuItem);
 
@@ -60,9 +68,9 @@ public class DefaultGUIFactory implements GUIFactory {
 
     @Override
     public JMenu createHelpMenu(MainFrame frame) {
-        JMenu menu = createJMenu("Help");
+        JMenu menu = createJMenu(message.get("menu.help"));
 
-        JMenuItem aboutMenuItem = createJMenuItem("About");
+        JMenuItem aboutMenuItem = createJMenuItem(message.get("menu.help.items.about"));
         aboutMenuItem.addActionListener(new AboutClickListener(frame));
         menu.add(aboutMenuItem);
         return menu;
