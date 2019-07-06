@@ -6,7 +6,7 @@ import java.util.List;
 import lexi.model.Composition;
 import lexi.model.Glyph;
 
-public class DeleteCommand implements ICommand {
+public class DeleteCommand implements Command {
 
 	private Composition document;
 	private int startFrom;

@@ -2,7 +2,7 @@ package lexi.command;
 
 import lexi.model.Composition;
 
-public class SaveCommand implements ICommand {
+public class SaveCommand implements Command {
 
 	private String filePath;
 	private Composition document;

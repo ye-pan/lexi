@@ -3,7 +3,7 @@ package lexi.model;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import lexi.visitor.IVisitor;
+import lexi.visitor.Visitor;
 
 public interface Glyph {
 
@@ -20,5 +20,5 @@ public interface Glyph {
 	
 	void setFont(Font font);
 
-	void accept(IVisitor visitor);
+	void accept(Visitor visitor);
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import lexi.model.Composition;
 
-public class DecreaseFontSizeCommand implements ICommand {
+public class DecreaseFontSizeCommand implements Command {
 	private Graphics graphics;
 	private Composition document;
 	private int startFrom;

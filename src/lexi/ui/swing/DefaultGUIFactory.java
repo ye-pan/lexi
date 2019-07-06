@@ -1,6 +1,6 @@
 package lexi.ui.swing;
 
-import lexi.controller.EditorController;
+import lexi.controller.EditorControllerImpl;
 import lexi.model.Composition;
 import lexi.ui.swing.listener.*;
 import lexi.util.i18n.MessageResource;
@@ -36,7 +36,7 @@ public class DefaultGUIFactory implements GUIFactory {
     }
 
     @Override
-    public JMenu createMainMenu(MainFrame frame, EditorController controller, Composition document) {
+    public JMenu createMainMenu(MainFrame frame, EditorControllerImpl controller, Composition document) {
         JMenu menu = createJMenu(message.get("menu.file"));
         JMenuItem saveMenuItem = createJMenuItem(message.get("menu.file.items.save"));
         saveMenuItem.addActionListener(new SaveClickListener(frame, controller));

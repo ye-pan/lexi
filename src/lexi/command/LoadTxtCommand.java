@@ -2,7 +2,7 @@ package lexi.command;
 
 import lexi.model.Composition;
 
-public class LoadTxtCommand implements ICommand {
+public class LoadTxtCommand implements Command {
 
     private String filePath;
 

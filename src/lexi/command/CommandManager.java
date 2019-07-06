@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CommandManager {
 
-	private List<ICommand> commands = new ArrayList<>();
+	private List<Command> commands = new ArrayList<>();
 	private int current = -1;
 	
 	private CommandManager(){}
@@ -13,7 +13,7 @@ public class CommandManager {
 		return CommandManagerHolder.INSTANCE;
 	}
 	
-	public Boolean execute(ICommand cmd){
+	public Boolean execute(Command cmd){
 		Boolean val = cmd.execute() && cmd.canUndo();
 		if (val){
 			int size = this.commands.size();

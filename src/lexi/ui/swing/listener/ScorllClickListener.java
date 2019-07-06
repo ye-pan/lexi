@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorController;
+import lexi.controller.EditorControllerImpl;
 import lexi.util.MenuPressedEventArgs;
 import lexi.util.StringUtils;
 import lexi.util.i18n.MessageResource;
@@ -13,9 +13,9 @@ import java.awt.event.ActionListener;
 
 public class ScorllClickListener implements ActionListener {
     private Component component;
-    private EditorController controller;
+    private EditorControllerImpl controller;
     private MessageResource message;
-    public ScorllClickListener(Component component, EditorController controller) {
+    public ScorllClickListener(Component component, EditorControllerImpl controller) {
         this.component = component;
         this.controller = controller;
         this.message = ResourceBundleMessageResource.getInstance();

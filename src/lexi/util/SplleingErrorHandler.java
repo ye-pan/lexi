@@ -2,6 +2,6 @@ package lexi.util;
 
 import lexi.viewmodel.UiGlyph;
 
-public interface ISplleingErrorHandler {
+public interface SplleingErrorHandler {
 	void handleSpellingError(String word, UiGlyph[] glyphs);
 }

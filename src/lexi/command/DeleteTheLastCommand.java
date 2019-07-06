@@ -3,7 +3,7 @@ package lexi.command;
 import lexi.model.Composition;
 import lexi.model.Glyph;
 
-public class DeleteTheLastCommand implements ICommand{
+public class DeleteTheLastCommand implements Command {
     private Composition document;
     private Glyph theLast;
     private int theLastIndex;

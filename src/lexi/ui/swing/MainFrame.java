@@ -17,24 +17,25 @@ import lexi.model.Composition;
 import lexi.model.ICompositor;
 import lexi.model.Row;
 import lexi.model.SimpleCompositor;
+import lexi.ui.GUIMainFrame;
 import lexi.util.*;
 import lexi.viewmodel.SelectionRange;
 import lexi.viewmodel.UiGlyph;
-import lexi.controller.EditorController;
+import lexi.controller.EditorControllerImpl;
 
-public class MainFrame extends JFrame implements lexi.ui.IMainFrame, KeyListener, ComponentListener, IObserver, WindowListener, MouseListener{
+public class MainFrame extends JFrame implements GUIMainFrame, KeyListener, ComponentListener, Observer, WindowListener, MouseListener{
 		
 	private static final int TOP_MARGIN = 20;
 	private static final int LEFT_MARGIN = 5;
 	private Graphics graphics;
-	private EditorController controller;
+	private EditorControllerImpl controller;
 	private Composition document;
 	private ICompositor compositor;
 	private int x1, y1, x2, y2;
 
 	private GUIFactory guiFactory;
 	
-	public MainFrame(Composition document, EditorController controller){		
+	public MainFrame(Composition document, EditorControllerImpl controller){
 		super();		
 		
 		this.document = document;

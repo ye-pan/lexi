@@ -7,7 +7,7 @@ import java.util.List;
 
 import lexi.model.Composition;
 
-public class ToggleItalicCommand implements ICommand {
+public class ToggleItalicCommand implements Command {
 
 	private Graphics graphics;
 	private Composition document;

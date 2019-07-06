@@ -1,5 +1,5 @@
 package lexi.util;
 
-public interface IObserver {
+public interface Observer {
 	void updateObserver(ModelChangedEventArgs args);
 }

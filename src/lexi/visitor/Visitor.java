@@ -4,7 +4,7 @@ import lexi.model.Char;
 import lexi.model.Picture;
 import lexi.model.Row;
 
-public interface IVisitor {
+public interface Visitor {
 
 	void visitChar(Char ch);
 

@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorController;
+import lexi.controller.EditorControllerImpl;
 import lexi.util.MenuPressedEventArgs;
 import lexi.util.SpellChecker;
 import lexi.util.i18n.MessageResource;
@@ -19,13 +19,13 @@ public class SpellCheckClickListener implements ActionListener {
 
     private Component component;
 
-    private EditorController controller;
+    private EditorControllerImpl controller;
 
     private MessageResource message;
 
     private volatile boolean isSpellCheck;
 
-    public SpellCheckClickListener(Component component, EditorController controller) {
+    public SpellCheckClickListener(Component component, EditorControllerImpl controller) {
         this.component = component;
         this.controller = controller;
         this.message = ResourceBundleMessageResource.getInstance();

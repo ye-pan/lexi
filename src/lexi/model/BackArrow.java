@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import lexi.visitor.IVisitor;
+import lexi.visitor.Visitor;
 
 public class BackArrow implements Glyph {
 
@@ -63,7 +63,7 @@ public class BackArrow implements Glyph {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(Visitor visitor) {
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package lexi.command;
 import lexi.model.Composition;
 import lexi.model.Glyph;
 
-public class InsertCommand implements ICommand {
+public class InsertCommand implements Command {
 
 	private int physicalIndex;
 	private Composition document;

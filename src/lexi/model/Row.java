@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import lexi.viewmodel.UiGlyph;
-import lexi.visitor.IVisitor;
+import lexi.visitor.Visitor;
 
 public class Row implements Glyph {
 
@@ -64,7 +64,7 @@ public class Row implements Glyph {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visitRow(this);
 	}
 

@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorController;
+import lexi.controller.EditorControllerImpl;
 import lexi.util.InsertImageEventArgs;
 
 import javax.swing.*;
@@ -11,10 +11,10 @@ public class InsertImageClickListener implements ActionListener {
     private static final int TOP_MARGIN = 20;
     private static final int LEFT_MARGIN = 5;
     private JFrame jFrame;
-    private EditorController controller;
+    private EditorControllerImpl controller;
     private JFileChooser jFileChooser;
 
-    public InsertImageClickListener(JFrame jFrame, EditorController controller) {
+    public InsertImageClickListener(JFrame jFrame, EditorControllerImpl controller) {
         this.jFrame = jFrame;
         this.controller = controller;
     }

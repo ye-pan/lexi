@@ -9,10 +9,10 @@ import lexi.serializer.TxtSerializer;
 import lexi.serializer.xml.DocumentSerializer;
 import lexi.util.*;
 
-public class Composition implements ISubject {
+public class Composition implements Subject {
 
 	private List<Glyph> children;
-	private List<IObserver> observers;
+	private List<Observer> observers;
 
 	public Composition() {
 		this.children = new ArrayList<>();
@@ -47,12 +47,12 @@ public class Composition implements ISubject {
 	}
 
 	@Override
-	public void registerObserver(IObserver observer) {
+	public void registerObserver(Observer observer) {
 		this.observers.add(observer);
 	}
 
 	@Override
-	public void removeObserver(IObserver observer) {
+	public void removeObserver(Observer observer) {
 		int index = this.observers.indexOf(observer);
 		if (index >= 0) {
 			this.observers.remove(index);
@@ -63,7 +63,7 @@ public class Composition implements ISubject {
 	public void notifyObservers() {
 		ModelChangedEventArgs args = new ModelChangedEventArgs(
 				this.getChildren());
-		for (IObserver observer : this.observers) {
+		for (Observer observer : this.observers) {
 			observer.updateObserver(args);
 		}
 	}

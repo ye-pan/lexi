@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
-import lexi.visitor.IVisitor;
+import lexi.visitor.Visitor;
 
 public class Char implements Glyph {
 
@@ -67,7 +67,7 @@ public class Char implements Glyph {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visitChar(this);
 	}
 

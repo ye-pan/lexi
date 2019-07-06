@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-import lexi.visitor.IVisitor;
+import lexi.visitor.Visitor;
 
 public class Picture implements Glyph {
 
@@ -46,7 +46,7 @@ public class Picture implements Glyph {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visitPicture(this);
 	}
 

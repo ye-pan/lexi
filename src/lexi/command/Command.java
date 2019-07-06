@@ -1,6 +1,6 @@
 package lexi.command;
 
-public interface ICommand {
+public interface Command {
 
 	boolean execute();
 

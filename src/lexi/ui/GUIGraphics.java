@@ -5,7 +5,7 @@ import java.awt.FontMetrics;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
 
-public interface IGraphics {
+public interface GUIGraphics {
 	void drawChar(char ch, int x, int y);
 	void drawImage(Image img, int x, int y, ImageObserver observer);
 	void drawString(String str, int x, int y);

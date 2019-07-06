@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorController;
+import lexi.controller.EditorControllerImpl;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
 
 public class SaveClickListener implements ActionListener  {
     private Component component;
-    private EditorController controller;
+    private EditorControllerImpl controller;
 
-    public SaveClickListener(Component component, EditorController controller) {
+    public SaveClickListener(Component component, EditorControllerImpl controller) {
         this.component = component;
         this.controller = controller;
     }

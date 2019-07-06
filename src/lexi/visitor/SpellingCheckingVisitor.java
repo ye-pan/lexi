@@ -7,16 +7,16 @@ import lexi.model.Char;
 import lexi.model.Glyph;
 import lexi.model.Picture;
 import lexi.model.Row;
-import lexi.util.ISplleingErrorHandler;
+import lexi.util.SplleingErrorHandler;
 import lexi.util.SpellChecker;
 import lexi.viewmodel.UiGlyph;
 
-public class SpellingCheckingVisitor implements IVisitor {
+public class SpellingCheckingVisitor implements Visitor {
 
 	private StringBuffer currentWord;
 	private List<Glyph> currentGlyphs;
 	private List<UiGlyph> uiGlyphs;
-	private ISplleingErrorHandler spllingErrorHandler;
+	private SplleingErrorHandler spllingErrorHandler;
 
 	public SpellingCheckingVisitor() {
 		this.currentWord = new StringBuffer();
@@ -24,7 +24,7 @@ public class SpellingCheckingVisitor implements IVisitor {
 		this.uiGlyphs = new ArrayList<UiGlyph>();
 	}
 
-	public SpellingCheckingVisitor(ISplleingErrorHandler spllingErrorHandler) {
+	public SpellingCheckingVisitor(SplleingErrorHandler spllingErrorHandler) {
 		this();
 		this.spllingErrorHandler = spllingErrorHandler;
 	}

@@ -1,9 +1,11 @@
 package lexi.ui.swing;
 
+import lexi.ui.GUIGraphics;
+
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class SwingGraphics implements lexi.ui.IGraphics {
+public class SwingGraphics implements GUIGraphics {
 
 	private Graphics graphics;
 	
