@@ -2,11 +2,13 @@ package lexi.ui.swing;
 
 import lexi.controller.EditorControllerImpl;
 import lexi.model.Composition;
+import lexi.ui.Position;
 import lexi.ui.swing.listener.*;
 import lexi.util.i18n.MessageResource;
 import lexi.util.i18n.ResourceBundleMessageResource;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class DefaultGUIFactory implements GUIFactory {
 
@@ -50,12 +52,16 @@ public class DefaultGUIFactory implements GUIFactory {
         imageMenuItem.addActionListener(new InsertImageClickListener(frame, controller));
         menu.add(imageMenuItem);
 
-        JMenuItem scrollMenuItem = createJMenuItem(message.get("menu.file.items.scroll.on"));
-        scrollMenuItem.addActionListener(new ScorllClickListener(frame, controller));
+        String scrollOnText = message.get("menu.file.items.scroll.on");
+        String scrollOffText = message.get("menu.file.items.scroll.off");
+        JMenuItem scrollMenuItem = createJMenuItem(scrollOnText);
+        scrollMenuItem.addActionListener(new ScorllClickListener(scrollOnText, scrollOffText, false, frame, controller));
         menu.add(scrollMenuItem);
 
-        JMenuItem spellCheckMenuItem = createJMenuItem(message.get("menu.file.items.spellCheck.on"));
-        spellCheckMenuItem.addActionListener(new SpellCheckClickListener(frame, controller));
+        String spellCheckOnText = message.get("menu.file.items.spellCheck.on");
+        String spellCheckOffText = message.get("menu.file.items.spellCheck.off");
+        JMenuItem spellCheckMenuItem = createJMenuItem(spellCheckOnText);
+        spellCheckMenuItem.addActionListener(new SpellCheckClickListener(spellCheckOnText, spellCheckOffText, false, frame, controller));
         menu.add(spellCheckMenuItem);
 
         JMenuItem exitMenuItem = createJMenuItem(message.get("menu.file.items.exit"));
@@ -70,9 +76,55 @@ public class DefaultGUIFactory implements GUIFactory {
         JMenu menu = createJMenu(message.get("menu.help"));
 
         JMenuItem aboutMenuItem = createJMenuItem(message.get("menu.help.items.about"));
-        aboutMenuItem.addActionListener(new AboutClickListener(frame));
+        String title = message.get("software.title");
+        String content = message.get("menu.help.items.about.content");
+        aboutMenuItem.addActionListener(new AboutClickListener(title, content, frame));
         menu.add(aboutMenuItem);
         return menu;
+    }
+
+    @Override
+    public JFrame createMainFrame(Composition document, EditorControllerImpl controller) {
+        MainFrame frame = new MainFrame(document, controller);
+        String title = message.get("software.title");
+        frame.setTitle(title);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Position position = defaultPosition();
+        frame.setBounds((int)position.getX(), (int)position.getY(), (int)position.getWidth(), (int)position.getHeight());
+        frame.setLayout(new BorderLayout());
+
+        JMenuBar menuBar = createJmenuBar();
+        frame.setJMenuBar(menuBar);
+
+        JMenu menu = createMainMenu(frame, controller, document);
+        menuBar.add(menu);
+
+        JMenu helpMenu = createHelpMenu(frame);
+        menuBar.add(helpMenu);
+
+        frame.addKeyListener(new EditorKeyListener(frame, controller));
+        frame.addComponentListener(frame);
+        frame.addWindowListener(new EditorWindowListener(document));
+        frame.addMouseListener(new EditorMouseListener(frame, controller));
+
+        Graphics graphics = frame.getGraphics();
+        controller.setGraphics(graphics);
+
+        document.removeObserver(new MainFrameObserver(frame));
+        return frame;
+    }
+
+    /**
+     * 获取默认窗体位置及大小
+     * @return
+     */
+    Position defaultPosition() {
+        int width = 400;
+        int height = 400;
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        float x = ((float)dimension.getWidth() - width) / 2;
+        float y = ((float)dimension.getHeight() - height) / 2;
+        return new Position(x, y, width, height);
     }
 
     private static class DefaultGUIFactoryHolder {

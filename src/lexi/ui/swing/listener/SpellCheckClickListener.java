@@ -21,23 +21,24 @@ public class SpellCheckClickListener implements ActionListener {
 
     private EditorControllerImpl controller;
 
-    private MessageResource message;
-
     private volatile boolean isSpellCheck;
 
-    public SpellCheckClickListener(Component component, EditorControllerImpl controller) {
+    private final String spellCheckOnText;
+    private final String spellCheckOffText;
+
+
+    public SpellCheckClickListener(String spellCheckOnText, String spellCheckOffText, boolean isSpellCheck, Component component, EditorControllerImpl controller) {
+        this.spellCheckOnText = spellCheckOnText;
+        this.spellCheckOffText = spellCheckOffText;
         this.component = component;
         this.controller = controller;
-        this.message = ResourceBundleMessageResource.getInstance();
-        this.isSpellCheck = false;
+        this.isSpellCheck = isSpellCheck;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         JMenuItem self = (JMenuItem) e.getSource();
-        String spellCheckOnText = message.get("menu.file.items.spellCheck.on");
-        String spellCheckOffText = message.get("menu.file.items.spellCheck.off");
         isSpellCheck = !isSpellCheck;
         this.controller.onMenuItemPressed(new MenuPressedEventArgs() {
             @Override

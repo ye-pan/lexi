@@ -16,7 +16,7 @@ public class ExitClickListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        document.removeObserver(mainFrame);
         mainFrame.dispose();
+        document.destory();
     }
 }

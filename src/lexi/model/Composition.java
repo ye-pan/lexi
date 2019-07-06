@@ -86,4 +86,12 @@ public class Composition implements Subject {
 		Decoder decoder = new TxtSerializer(filePath);
 		decoder.decode(this);
 	}
+
+	@Override
+	public void destory() {
+		this.observers.clear();
+		this.children.clear();
+		this.observers = null;
+		this.children = null;
+	}
 }

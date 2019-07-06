@@ -1,43 +1,41 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 import lexi.util.MenuPressedEventArgs;
-import lexi.util.StringUtils;
-import lexi.util.i18n.MessageResource;
-import lexi.util.i18n.ResourceBundleMessageResource;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ScorllClickListener implements ActionListener {
-    private Component component;
-    private EditorControllerImpl controller;
-    private MessageResource message;
-    public ScorllClickListener(Component component, EditorControllerImpl controller) {
+    private final Component component;
+    private final EditorController controller;
+    private final String scrollOffText;
+    private final String scrollOnText;
+    private volatile boolean isScrollOn;
+    public ScorllClickListener(String scrollOnText, String scrollOffText, boolean isScrollOn, Component component, EditorController controller) {
+        this.scrollOffText = scrollOffText;
+        this.scrollOnText = scrollOnText;
         this.component = component;
         this.controller = controller;
-        this.message = ResourceBundleMessageResource.getInstance();
+        this.isScrollOn = isScrollOn;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem self = (JMenuItem)e.getSource();
-        String scrollOffText = message.get("menu.file.items.scroll.off");
-        String scrollOnText = message.get("menu.file.items.scroll.on");
-        boolean isToScrollOn = StringUtils.equals(self.getText(), scrollOffText);
+        isScrollOn = !isScrollOn;
         this.controller.onMenuItemPressed(new MenuPressedEventArgs() {
             @Override
             public boolean isScrollOn() {
-                return isToScrollOn;
+                return isScrollOn;
             }
 
             @Override
             public boolean isScrollOff() {
-                return !isToScrollOn;
+                return !isScrollOn;
             }
         });
-        if (isToScrollOn){
+        if (isScrollOn){
             self.setText(scrollOnText);
         } else{
             self.setText(scrollOffText);

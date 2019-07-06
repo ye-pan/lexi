@@ -7,15 +7,20 @@ import java.awt.event.ActionListener;
 
 public class AboutClickListener implements ActionListener  {
 
-    private Component window;
+    private final Component window;
 
-    public AboutClickListener(Component window) {
+    private final String content;
+
+    private final String title;
+
+    public AboutClickListener(String title, String content, Component window) {
+        this.content = content;
+        this.title = title;
         this.window = window;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(window, "Lext editor implementation\nDeveloper: Amit Dutta" +
-                "\nEmail: adutta@cis.uab.edu\nWeb: http://www.amitdutta.net", "Lexi", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(window, content, title, JOptionPane.INFORMATION_MESSAGE);
     }
 }
