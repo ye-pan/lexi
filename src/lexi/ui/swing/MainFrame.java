@@ -22,9 +22,13 @@ import lexi.util.*;
 import lexi.viewmodel.SelectionRange;
 import lexi.viewmodel.UiGlyph;
 import lexi.controller.EditorControllerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainFrame extends JFrame implements GUIMainFrame, KeyListener, ComponentListener, Observer, WindowListener, MouseListener{
-		
+
+	private static final Logger log = LoggerFactory.getLogger(MainFrame.class);
+
 	private static final int TOP_MARGIN = 20;
 	private static final int LEFT_MARGIN = 5;
 	private Graphics graphics;
@@ -33,17 +37,14 @@ public class MainFrame extends JFrame implements GUIMainFrame, KeyListener, Comp
 	private ICompositor compositor;
 	private int x1, y1, x2, y2;
 
-	private GUIFactory guiFactory;
-	
-	public MainFrame(Composition document, EditorControllerImpl controller){
+	public MainFrame(Composition document, EditorControllerImpl controller, GUIFactory guiFactory){
 		super();		
 		
 		this.document = document;
 		this.controller = controller;
 		this.document.registerObserver(this);
 		this.compositor = new SimpleCompositor();
-		this.guiFactory = DefaultGUIFactory.getInstance();
-		
+
 		this.setTitle("Lexi");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//窗口定位到屏幕正中央
@@ -87,7 +88,6 @@ public class MainFrame extends JFrame implements GUIMainFrame, KeyListener, Comp
 	
 	@Override
 	public void componentMoved(ComponentEvent e) {	
-		/*this.lexi.controller.handleResize(); */
 		this.repaint(1);
 	}
 
@@ -101,18 +101,25 @@ public class MainFrame extends JFrame implements GUIMainFrame, KeyListener, Comp
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		log.debug("{}", e);
+		KeyPressedEventArgs param = new KeyPressedEventArgs(this.graphics, this.getTop(), this.getLeft(), this.getContentPane().getWidth(),
+				this.getContentPane().getHeight(), e, this.getFont());
+		this.controller.onKeyTyped(param);
+		this.repaint(1);
 	}	
 	
 	@Override
-	public void keyPressed(KeyEvent e) {		
-			KeyPressedEventArgs param = new KeyPressedEventArgs(this.graphics, this.getTop(), this.getLeft(), this.getContentPane().getWidth(),
-					this.getContentPane().getHeight(), e, this.getFont());
-			this.controller.onKeyPressed(param);
-			this.repaint(1);			
+	public void keyPressed(KeyEvent e) {
+		log.debug("{}", e);
+		KeyPressedEventArgs param = new KeyPressedEventArgs(this.graphics, this.getTop(), this.getLeft(), this.getContentPane().getWidth(),
+				this.getContentPane().getHeight(), e, this.getFont());
+		this.controller.onKeyPressed(param);
+		this.repaint(1);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+
 	}
 	
 	@Override

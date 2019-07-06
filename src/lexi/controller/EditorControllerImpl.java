@@ -40,6 +40,7 @@ public class EditorControllerImpl implements EditorController, SplleingErrorHand
 
 	@Override
 	public void onKeyPressed(KeyPressedEventArgs param) {
+	    //TODO-yepan 期望能够只处理编辑器的功能建
 		Glyph glyph;
 		Command cmd;
 		if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_ESCAPE){
@@ -110,17 +111,28 @@ public class EditorControllerImpl implements EditorController, SplleingErrorHand
 					index += 1;					
 				}
 			}			
-		} else if(param.getKeyEvent().isShiftDown()
-				|| param.getKeyEvent().isAltDown()
-				|| (param.getKeyEvent().getKeyCode() == KeyEvent.VK_CAPS_LOCK)) {
-			//Shift，Alt，CapsLock 忽略
 		}
-		else {
-			if (!param.getKeyEvent().isControlDown()){				
-					glyph = new Char(param.getKeyEvent().getKeyChar(), param.getFont());
-					this.insertGlyph(glyph);
-					this.selectionRange = null;
-			}
+	}
+
+	public void onKeyTyped(KeyPressedEventArgs param) {
+	    //TODO-yepan 期望能够只处理编辑器的内容输入
+		if (param.getKeyEvent().getKeyChar() == KeyEvent.VK_DELETE
+				|| param.getKeyEvent().getKeyChar() == KeyEvent.VK_BACK_SPACE
+				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() == '+')
+				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() == '-')
+				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'a')
+				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'b')
+				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'i')
+				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'z')
+				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'y')
+				|| (param.getKeyEvent().getKeyChar() == KeyEvent.VK_PAGE_UP)
+				|| (param.getKeyEvent().getKeyChar() == KeyEvent.VK_PAGE_DOWN)
+				|| (param.getKeyEvent().getKeyChar() == KeyEvent.VK_ESCAPE)){
+		//nothings
+		} else {
+			Glyph glyph = new Char(param.getKeyEvent().getKeyChar(), param.getFont());
+			this.insertGlyph(glyph);
+			this.selectionRange = null;
 		}
 	}
 

@@ -4,14 +4,24 @@ import lexi.model.Composition;
 import lexi.util.StringUtils;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public abstract class AbstractFileSerializer implements Encoder, Decoder {
+
+    protected Charset originCharset;
+
+    protected Charset charset;
+
     private String filePath;
+
     public AbstractFileSerializer(String filePath) {
         if(StringUtils.isEmpty(filePath)) {
             throw new IllegalArgumentException("File path must not be empty.");
         }
         this.filePath = filePath;
+        this.originCharset = StandardCharsets.UTF_8;
+        this.charset = StandardCharsets.UTF_8;
     }
     @Override
     public void decode(Composition document) {
@@ -33,7 +43,6 @@ public abstract class AbstractFileSerializer implements Encoder, Decoder {
     public void encode(Composition document) {
         File file = new File(filePath);
         if(file.exists()) {
-            //TODO 已经存在的文件提示是否覆盖
             throw new IllegalStateException("文件已经存在!");
         }
         try (FileOutputStream out = new FileOutputStream(file)) {
