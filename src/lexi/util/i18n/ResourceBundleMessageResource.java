@@ -2,13 +2,13 @@ package lexi.util.i18n;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceBundleMessageResource implements MessageResource {
 
-    private static final Map<String, String> KEY_VALUE_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, String> KEY_VALUE_CACHE = new HashMap<>();
 
     private ResourceBundle resourceBundle;
 
@@ -24,15 +24,15 @@ public class ResourceBundleMessageResource implements MessageResource {
 
     @Override
     public String get(String key, Object... args) {
-        return KEY_VALUE_CACHE.computeIfAbsent(key, (k)->{
+        String source = KEY_VALUE_CACHE.computeIfAbsent(key, (k)->{
             String value = resourceBundle.getString(k);
             value = charset.decode(originCharset.encode(value)).toString();
-            if(args != null && args.length > 0) {
-                value = String.format(value, args);
-            }
             return value;
         });
-
+        if(args != null && args.length > 0) {
+            source = String.format(source, args);
+        }
+        return source;
     }
 
     @Override
