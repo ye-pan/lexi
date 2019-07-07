@@ -3,8 +3,6 @@ package lexi.ui;
 import javax.swing.*;
 
 public class Position {
-    private static final int TOP_MARGIN = 20;
-    private static final int LEFT_MARGIN = 5;
 
     private final float x;
     private final float y;
@@ -33,11 +31,4 @@ public class Position {
         return height;
     }
 
-    public static int getMainFrameLeft(JFrame frame) {
-        return frame.getInsets().left + LEFT_MARGIN;
-    }
-
-    public static int getMainFrameTop(JFrame frame) {
-        return frame.getInsets().top + frame.getJMenuBar().getHeight() + TOP_MARGIN;
-    }
 }

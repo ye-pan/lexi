@@ -36,6 +36,7 @@ public class EditorControllerImpl implements EditorController, SplleingErrorHand
 		this.document = document;
 		this.logicalDocument = new ConcreteDocument();
 		this.spellCheckEnabled = false;
+		SpellChecker.getInstance().loadDictionary("./dictionary/american-english");
 	}	
 
 	@Override
@@ -143,32 +144,42 @@ public class EditorControllerImpl implements EditorController, SplleingErrorHand
 		this.selectionRange = null;
 	}
 	
-	@Override
-	public void onMenuItemPressed(MenuPressedEventArgs param){
-		if (param.isScrollOn()){
-			// turn on scrolling
-			List<Row> rows = this.logicalDocument.getRows();
-			this.logicalDocument = new ScrollableDocument(this.logicalDocument);
-			// this.logicalDocument = new BorderedDocument(new ScrollableDocument(this.logicalDocument));
-			this.logicalDocument.setRows(rows);			
-		}
-		else if (param.isScrollOff()) {
-			// turn scrolling off
-			List<Row> rows = this.logicalDocument.getRows();
-			this.logicalDocument = new ConcreteDocument();
-			this.logicalDocument.setRows(rows);
-			this.index = 0;
-		}
-		else if (param.isSpellCheckOn()){
-			this.spellCheckEnabled = true;
-		}
-		else if (param.isSpellCheckOff()){
-			this.spellCheckEnabled = false;
-			this.misspelledGlyphs = null;
-		}
+	/**
+	 * 禁用编辑器检查
+	 */
+	public void disableSpellCheck() {
+		this.spellCheckEnabled = false;
+		this.misspelledGlyphs = null;
 	}
 
-    @Override
+	/**
+	 * 启用编辑器检查
+	 */
+	public void enableSpellCheck() {
+		this.spellCheckEnabled = true;
+	}
+
+	/**
+	 * 关闭编辑器滚动条
+	 */
+	public void scrollOff() {
+		List<Row> rows = this.logicalDocument.getRows();
+		this.logicalDocument = new ConcreteDocument();
+		this.logicalDocument.setRows(rows);
+		this.index = 0;
+	}
+
+	/**
+	 * 开启编辑器滚动条
+	 */
+	public void scrollOn() {
+		List<Row> rows = this.logicalDocument.getRows();
+		this.logicalDocument = new ScrollableDocument(this.logicalDocument);
+		// this.logicalDocument = new BorderedDocument(new ScrollableDocument(this.logicalDocument));
+		this.logicalDocument.setRows(rows);
+	}
+
+	@Override
 	public void handleDrawing(List<Row> rows, ViewEventArgs args){
 		this.logicalDocument.draw(rows, args, this.index);
 		this.updateLogicalLocations(args);

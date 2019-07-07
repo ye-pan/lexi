@@ -9,7 +9,7 @@ import lexi.model.Composition;
 import lexi.model.ICompositor;
 import lexi.model.Row;
 import lexi.model.SimpleCompositor;
-import lexi.ui.Position;
+import lexi.ui.PositionUtil;
 import lexi.util.*;
 import lexi.controller.EditorControllerImpl;
 
@@ -53,8 +53,8 @@ public class MainFrame extends JFrame implements ComponentListener {
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
-		int top = Position.getMainFrameTop(this);
-		int left = Position.getMainFrameLeft(this);
+		int top = PositionUtil.getMainFrameTop(this);
+		int left = PositionUtil.getMainFrameLeft(this);
 		ViewEventArgs param = new ViewEventArgs(getGraphics(), top, left, this.getWidth(),
 				this.getHeight());
 		List<Row> rows = this.compositor.compose(this.document.getChildren(), param);

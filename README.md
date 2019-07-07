@@ -8,12 +8,11 @@
 * Abstract Factory
 * Composite
 * MVC
+* Observer
 
 ## future
 1. 加入了基于Java的国际化支持
 2. 将文档对象序列化到文件进行了抽象
 3. 基于原来的界面操作，新提供了操作
-
-## 启动
-mvn run
+4. 提供了中文输入法支持
 
