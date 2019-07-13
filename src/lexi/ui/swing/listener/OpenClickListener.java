@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 public class OpenClickListener implements ActionListener {
 
     private Component component;
-    private EditorControllerImpl controller;
+    private EditorController controller;
 
-    public OpenClickListener(Component component, EditorControllerImpl controller) {
+    public OpenClickListener(Component component, EditorController controller) {
         this.component = component;
         this.controller = controller;
     }

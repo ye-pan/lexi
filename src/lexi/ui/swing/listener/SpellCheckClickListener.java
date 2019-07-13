@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ public class SpellCheckClickListener implements ActionListener {
 
     private Component component;
 
-    private EditorControllerImpl controller;
+    private EditorController controller;
 
     private boolean isSpellCheck;
 
@@ -18,7 +18,7 @@ public class SpellCheckClickListener implements ActionListener {
     private final String spellCheckOffText;
 
 
-    public SpellCheckClickListener(String spellCheckOnText, String spellCheckOffText, boolean isSpellCheck, Component component, EditorControllerImpl controller) {
+    public SpellCheckClickListener(String spellCheckOnText, String spellCheckOffText, boolean isSpellCheck, Component component, EditorController controller) {
         this.spellCheckOnText = spellCheckOnText;
         this.spellCheckOffText = spellCheckOffText;
         this.component = component;

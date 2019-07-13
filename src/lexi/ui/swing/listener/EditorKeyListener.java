@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 import lexi.ui.PositionUtil;
 import lexi.util.KeyPressedEventArgs;
 import org.slf4j.Logger;
@@ -16,9 +16,9 @@ public class EditorKeyListener implements KeyListener {
 
     private JFrame frame;
 
-    private EditorControllerImpl controller;
+    private EditorController controller;
 
-    public EditorKeyListener(JFrame frame, EditorControllerImpl controller) {
+    public EditorKeyListener(JFrame frame, EditorController controller) {
         this.frame = frame;
         this.controller = controller;
     }

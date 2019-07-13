@@ -16,9 +16,13 @@ public interface Glyph {
 
 	int getHeight();
 
-	Font getFont();
+	default Font getFont() {
+		return null;
+	}
 	
-	void setFont(Font font);
+	default void setFont(Font font) {
+
+	}
 
 	void accept(Visitor visitor);
 }

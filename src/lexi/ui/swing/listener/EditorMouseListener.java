@@ -1,6 +1,6 @@
 package lexi.ui.swing.listener;
 
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 import lexi.model.Row;
 import lexi.ui.swing.MainFrame;
 import lexi.viewmodel.SelectionRange;
@@ -13,13 +13,13 @@ import java.util.List;
 
 public class EditorMouseListener implements MouseListener {
     private MainFrame frame;
-    private EditorControllerImpl controller;
+    private EditorController controller;
     private int x1;
     private int y1;
     private int x2;
     private int y2;
 
-    public EditorMouseListener(MainFrame frame, EditorControllerImpl controller) {
+    public EditorMouseListener(MainFrame frame, EditorController controller) {
         this.frame = frame;
         this.controller = controller;
     }

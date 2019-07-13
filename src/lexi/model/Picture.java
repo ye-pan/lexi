@@ -50,15 +50,6 @@ public class Picture implements Glyph {
 		visitor.visitPicture(this);
 	}
 
-	@Override
-	public void setFont(Font font) {
-	}
-
-	@Override
-	public Font getFont() {
-		return null;
-	}
-
 	private BufferedImage getImage() {
 		try {
 			if (this.image == null) {

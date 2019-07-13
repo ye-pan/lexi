@@ -11,15 +11,15 @@ import lexi.model.Row;
 import lexi.model.SimpleCompositor;
 import lexi.ui.PositionUtil;
 import lexi.util.*;
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 
 public class MainFrame extends JFrame implements ComponentListener {
 
-	private EditorControllerImpl controller;
+	private EditorController controller;
 	private Composition document;
 	private ICompositor compositor;
 
-	public MainFrame(Composition document, EditorControllerImpl controller){
+	public MainFrame(Composition document, EditorController controller){
 		super();		
 		this.document = document;
 		this.controller = controller;

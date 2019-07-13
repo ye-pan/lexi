@@ -1,6 +1,6 @@
 package lexi.ui.swing;
 
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 import lexi.model.Composition;
 import lexi.ui.Position;
 import lexi.ui.swing.listener.*;
@@ -38,7 +38,7 @@ public class DefaultGUIFactory implements GUIFactory {
     }
 
     @Override
-    public JMenu createMainMenu(MainFrame frame, EditorControllerImpl controller, Composition document) {
+    public JMenu createMainMenu(MainFrame frame, EditorController controller, Composition document) {
         JMenu menu = createJMenu(message.get("menu.file"));
         JMenuItem saveMenuItem = createJMenuItem(message.get("menu.file.items.save"));
         saveMenuItem.addActionListener(new SaveClickListener(frame, controller));
@@ -84,7 +84,7 @@ public class DefaultGUIFactory implements GUIFactory {
     }
 
     @Override
-    public JFrame createMainFrame(Composition document, EditorControllerImpl controller) {
+    public JFrame createMainFrame(Composition document, EditorController controller) {
         MainFrame frame = new MainFrame(document, controller);
         String title = message.get("software.title");
         frame.setTitle(title);

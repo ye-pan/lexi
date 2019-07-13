@@ -1,8 +1,6 @@
 package lexi.ui.swing.listener;
 
 import lexi.controller.EditorController;
-import lexi.controller.EditorControllerImpl;
-import lexi.ui.swing.event.MenuPressedEventArgs;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,11 +8,11 @@ import java.awt.event.ActionListener;
 
 public class ScorllClickListener implements ActionListener {
     private final Component component;
-    private final EditorControllerImpl controller;
+    private final EditorController controller;
     private final String scrollOffText;
     private final String scrollOnText;
     private boolean isScrollOn;
-    public ScorllClickListener(String scrollOnText, String scrollOffText, boolean isScrollOn, Component component, EditorControllerImpl controller) {
+    public ScorllClickListener(String scrollOnText, String scrollOffText, boolean isScrollOn, Component component, EditorController controller) {
         this.scrollOffText = scrollOffText;
         this.scrollOnText = scrollOnText;
         this.component = component;

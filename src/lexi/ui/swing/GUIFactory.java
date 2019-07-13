@@ -1,6 +1,6 @@
 package lexi.ui.swing;
 
-import lexi.controller.EditorControllerImpl;
+import lexi.controller.EditorController;
 import lexi.model.Composition;
 import javax.swing.*;
 
@@ -36,7 +36,7 @@ public interface GUIFactory {
      * @param document
      * @return
      */
-    JMenu createMainMenu(MainFrame frame, EditorControllerImpl controller, Composition document);
+    JMenu createMainMenu(MainFrame frame, EditorController controller, Composition document);
 
     /**
      * 创建窗口帮助菜单
@@ -51,5 +51,5 @@ public interface GUIFactory {
      * @param controller
      * @return
      */
-    JFrame createMainFrame(Composition document, EditorControllerImpl controller);
+    JFrame createMainFrame(Composition document, EditorController controller);
 }
