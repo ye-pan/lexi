@@ -1,7 +1,6 @@
 package lexi.command;
 
 import java.awt.Font;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,15 +8,12 @@ import lexi.model.Composition;
 
 public class ToggleBoldCommand implements Command {
 
-	private Graphics graphics;
 	private Composition document;
 	private int startFrom;
 	private int endAt;
 	private List<Font> previousFonts;
 
-	public ToggleBoldCommand(Graphics graphics, Composition document,
-			int startFrom, int endAt) {
-		this.graphics = graphics;
+	public ToggleBoldCommand(Composition document, int startFrom, int endAt) {
 		this.document = document;
 		this.startFrom = startFrom;
 		this.endAt = endAt;
@@ -26,25 +22,18 @@ public class ToggleBoldCommand implements Command {
 
 	@Override
 	public boolean execute() {
-		Boolean val = true;
-		try {
-			List<Font> fonts = new ArrayList<Font>();
-			for (int i = this.startFrom; i <= this.endAt; i++) {
-				Font previousFont = this.document.getChildren().get(i)
-						.getFont();				
-				Font newFont = new Font(previousFont.getName(),
-						previousFont.getStyle() | Font.BOLD,
-						previousFont.getSize());
-				fonts.add(newFont);
-			}
-
-			this.document.updateFont(fonts, startFrom, endAt);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			val = false;
+		List<Font> fonts = new ArrayList<Font>();
+		for (int i = this.startFrom; i <= this.endAt; i++) {
+			Font previousFont = this.document.getChildren().get(i)
+					.getFont();
+			Font newFont = new Font(previousFont.getName(),
+					previousFont.getStyle() | Font.BOLD,
+					previousFont.getSize());
+			fonts.add(newFont);
 		}
 
-		return val;
+		this.document.updateFont(fonts, startFrom, endAt);
+		return true;
 	}
 
 	@Override

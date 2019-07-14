@@ -1,8 +1,6 @@
 package lexi.controller;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import lexi.command.*;
@@ -28,7 +26,6 @@ public class EditorController implements SplleingErrorHandler {
 	private int index;
 	private Boolean spellCheckEnabled;
 	private SelectionRange selectionRange;
-	private List<UiGlyph[]> misspelledGlyphs;
 	private Graphics graphics;
 	
 	public EditorController(Composition document){
@@ -40,17 +37,14 @@ public class EditorController implements SplleingErrorHandler {
 	}	
 
 	public void onKeyPressed(KeyPressedEventArgs param) {
-	    //TODO-yepan 期望能够只处理编辑器的功能建
-		Glyph glyph;
-		Command cmd;
-		if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_ESCAPE){
+		KeyEvent keyEvent = param.getKeyEvent();
+		if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
 			this.selectionRange = null;
-		}
-		else if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_DELETE
-				|| param.getKeyEvent().getKeyCode() == KeyEvent.VK_BACK_SPACE){
-			if (this.selectionRange != null){								
+		} else if(keyEvent.getKeyCode() == KeyEvent.VK_DELETE || keyEvent.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			if(this.selectionRange != null) {
 				int startFrom = this.getStartFrom();
 				int endAt = this.getEndAt();
+				Command cmd;
 				if(endAt == 0 && startFrom > endAt) {
 					cmd = new DeleteCommand(document, startFrom - 1, startFrom);
 				} else {
@@ -59,78 +53,60 @@ public class EditorController implements SplleingErrorHandler {
 				CommandManager.getInstance().execute(cmd);
 				this.selectionRange = null;
 			} else {
-				cmd = new DeleteTheLastCommand(document);
-				CommandManager.getInstance().execute(cmd);
+				CommandManager.getInstance().execute(new DeleteTheLastCommand(document));
 			}
-		}
-		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() == '+'  && param.getKeyEvent().getKeyCode() == 107) {
-			int startFrom = this.getStartFrom();
-			int endAt = this.getEndAt();
-			cmd = new IncreaseFontSizeCommand(param.getGraphics(), this.document, startFrom, endAt);
-			CommandManager.getInstance().execute(cmd);
-			
-		}
-		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() == '-'  && param.getKeyEvent().getKeyCode() == 109) {
-			int startFrom = this.getStartFrom();
-			int endAt = this.getEndAt();
-			cmd = new DecreaseFontSizeCommand(param.getGraphics(), this.document, startFrom, endAt);
-			CommandManager.getInstance().execute(cmd);
-		}		
-		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'a'  && param.getKeyEvent().getKeyCode() == 65){
-			glyph = new Arrow(param.getFont());
-			this.document.insert(glyph, this.document.getChildren().size());
-		}
-		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'b'  && param.getKeyEvent().getKeyCode() == 66){
-			int startFrom = this.getStartFrom();
-			int endAt = this.getEndAt();
-			cmd = new ToggleBoldCommand(param.getGraphics(), this.document, startFrom, endAt);
-			CommandManager.getInstance().execute(cmd);
-		}
-		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'i'  && param.getKeyEvent().getKeyCode() == 73){
-			int startFrom = this.getStartFrom();
-			int endAt = this.getEndAt();
-			cmd = new ToggleItalicCommand(param.getGraphics(), this.document, startFrom, endAt);
-			CommandManager.getInstance().execute(cmd);
-		}
-		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'z'  && param.getKeyEvent().getKeyCode() == 90){
+		} else if(keyEvent.isControlDown() && keyEvent.getKeyChar() == '+'  && keyEvent.getKeyCode() == 107) {
+			if(selectionRange != null) {
+				int startFrom = this.getStartFrom();
+				int endAt = this.getEndAt();
+				CommandManager.getInstance().execute(new IncreaseFontSizeCommand(document, startFrom, endAt));
+			} else {
+				CommandManager.getInstance().execute(new IncreaseFontSizeCommand(document));
+			}
+		} else if(keyEvent.isControlDown() && keyEvent.getKeyChar() == '-'  && keyEvent.getKeyCode() == 109) {
+			if(selectionRange != null) {
+				int startFrom = this.getStartFrom();
+				int endAt = this.getEndAt();
+				CommandManager.getInstance().execute(new DecreaseFontSizeCommand(this.document, startFrom, endAt));
+			} else {
+				CommandManager.getInstance().execute(new DecreaseFontSizeCommand(document));
+			}
+		} else if(keyEvent.isControlDown() && keyEvent.getKeyChar() != 'a'  && keyEvent.getKeyCode() == 65) {
+			this.document.insert(new Arrow(param.getFont()), document.getChildren().size());
+		} else if(keyEvent.isControlDown() && keyEvent.getKeyChar() != 'b' && keyEvent.getKeyCode() == 66) {
+			if(selectionRange != null) {
+				int startFrom = this.getStartFrom();
+				int endAt = this.getEndAt();
+				CommandManager.getInstance().execute(new ToggleBoldCommand(document, startFrom, endAt));
+			}
+		} else if(keyEvent.isControlDown() && keyEvent.getKeyChar() != 'i'  && keyEvent.getKeyCode() == 73) {
+			if(selectionRange != null) {
+				int startFrom = this.getStartFrom();
+				int endAt = this.getEndAt();
+				CommandManager.getInstance().execute(new ToggleItalicCommand(this.document, startFrom, endAt));
+			}
+		} else if(keyEvent.isControlDown() && keyEvent.getKeyChar() != 'z'  && keyEvent.getKeyCode() == 90) {
 			CommandManager.getInstance().undo();
-		}
-		else if (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'y'  && param.getKeyEvent().getKeyCode() == 89){
+		} else if(keyEvent.isControlDown() && keyEvent.getKeyChar() != 'y'  && keyEvent.getKeyCode() == 89) {
 			CommandManager.getInstance().redo();
-		}
-		else if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_PAGE_UP){			
-			if (this.logicalDocument.needScrolling(param)){			
+		} else if(keyEvent.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+			if (this.logicalDocument.needScrolling(param)){
 				if (index > 0){
 					index -= 1;
 				}
 			}
-		}
-		else if (param.getKeyEvent().getKeyCode() == KeyEvent.VK_PAGE_DOWN){			
+		} else if(keyEvent.getKeyCode() == KeyEvent.VK_PAGE_DOWN){
 			if (this.logicalDocument.needScrolling(param)){
 				if (index < (this.logicalDocument.getRows().size() - 1)){
-					index += 1;					
+					index += 1;
 				}
-			}			
+			}
 		}
 	}
 
-	public void onKeyTyped(KeyPressedEventArgs param) {
-	    //TODO-yepan 期望能够只处理编辑器的内容输入
-		if (param.getKeyEvent().getKeyChar() == KeyEvent.VK_DELETE
-				|| param.getKeyEvent().getKeyChar() == KeyEvent.VK_BACK_SPACE
-				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() == '+')
-				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() == '-')
-				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'a')
-				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'b')
-				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'i')
-				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'z')
-				|| (param.getKeyEvent().isControlDown() && param.getKeyEvent().getKeyChar() != 'y')
-				|| (param.getKeyEvent().getKeyChar() == KeyEvent.VK_PAGE_UP)
-				|| (param.getKeyEvent().getKeyChar() == KeyEvent.VK_PAGE_DOWN)
-				|| (param.getKeyEvent().getKeyChar() == KeyEvent.VK_ESCAPE)){
-		//nothings
-		} else {
-			Glyph glyph = new Char(param.getKeyEvent().getKeyChar(), param.getFont());
+	public void onKeyTyped(KeyEvent keyEvent, Font font) {
+		if(keyEvent.getKeyCode() == 0 && keyEvent.getKeyChar() != KeyEvent.VK_BACK_SPACE && keyEvent.getKeyChar() != KeyEvent.VK_DELETE) {
+			Glyph glyph = new Char(keyEvent.getKeyChar(), font);
 			this.insertGlyph(glyph);
 			this.selectionRange = null;
 		}
@@ -147,7 +123,6 @@ public class EditorController implements SplleingErrorHandler {
 	 */
 	public void disableSpellCheck() {
 		this.spellCheckEnabled = false;
-		this.misspelledGlyphs = null;
 	}
 
 	/**

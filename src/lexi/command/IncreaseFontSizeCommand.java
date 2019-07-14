@@ -1,23 +1,25 @@
 package lexi.command;
 
 import java.awt.Font;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
 import lexi.model.Composition;
 
 public class IncreaseFontSizeCommand implements Command {
-
-	private Graphics graphics;
 	private Composition document;
 	private int startFrom;
 	private int endAt;
 	private List<Font> previousFonts;
 
-	public IncreaseFontSizeCommand(Graphics graphics, Composition document,
+	public IncreaseFontSizeCommand(Composition document) {
+		this.document = document;
+		this.startFrom = 0;
+		this.endAt = document.getChildren().size() - 1;
+	}
+
+	public IncreaseFontSizeCommand(Composition document,
 			int startFrom, int endAt) {
-		this.graphics = graphics;
 		this.document = document;
 		this.startFrom = startFrom;
 		this.endAt = endAt;
@@ -26,24 +28,17 @@ public class IncreaseFontSizeCommand implements Command {
 
 	@Override
 	public boolean execute() {
-		Boolean val = true;
-		try {
-			List<Font> fonts = new ArrayList<Font>();
-			for (int i = this.startFrom; i <= this.endAt; i++) {
-				Font previousFont = this.document.getChildren().get(i)
-						.getFont();
-				Font newFont = new Font(previousFont.getName(),
-						previousFont.getStyle(), previousFont.getSize() + 1);
-				fonts.add(newFont);
-			}
-
-			this.document.updateFont(fonts, startFrom, endAt);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			val = false;
+		List<Font> fonts = new ArrayList<Font>();
+		for (int i = this.startFrom; i <= this.endAt; i++) {
+			Font previousFont = this.document.getChildren().get(i)
+					.getFont();
+			Font newFont = new Font(previousFont.getName(),
+					previousFont.getStyle(), previousFont.getSize() + 1);
+			fonts.add(newFont);
 		}
 
-		return val;
+		this.document.updateFont(fonts, startFrom, endAt);
+		return true;
 	}
 
 	@Override

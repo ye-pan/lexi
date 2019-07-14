@@ -26,13 +26,19 @@ public class EditorKeyListener implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         log.debug("{}", e);
-        processKeyEvent(e, true);
+        controller.onKeyTyped(e, frame.getFont());
+        frame.repaint(1);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         log.debug("{}", e);
-        processKeyEvent(e, false);
+        int top = PositionUtil.getMainFrameTop(frame);
+        int left = PositionUtil.getMainFrameLeft(frame);
+        KeyPressedEventArgs param = new KeyPressedEventArgs(frame.getGraphics(), top, left, frame.getContentPane().getWidth(),
+                frame.getContentPane().getHeight(), e, frame.getFont());
+        this.controller.onKeyPressed(param);
+        frame.repaint(1);
     }
 
     @Override
@@ -40,16 +46,4 @@ public class EditorKeyListener implements KeyListener {
 
     }
 
-    private void processKeyEvent(KeyEvent e, boolean isTyped) {
-        int top = PositionUtil.getMainFrameTop(frame);
-        int left = PositionUtil.getMainFrameLeft(frame);
-        KeyPressedEventArgs param = new KeyPressedEventArgs(frame.getGraphics(), top, left, frame.getContentPane().getWidth(),
-                frame.getContentPane().getHeight(), e, frame.getFont());
-        if(isTyped) {
-            controller.onKeyTyped(param);
-        } else {
-            this.controller.onKeyPressed(param);
-        }
-        frame.repaint(1);
-    }
 }
