@@ -30,4 +30,8 @@ public class Editor {
         Command command = new InsertCommand(document, glyph, physicalIndex);
         manager.run(command);
     }
+
+    public Document getDocument() {
+        return document;
+    }
 }

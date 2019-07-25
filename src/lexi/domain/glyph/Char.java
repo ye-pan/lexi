@@ -50,6 +50,10 @@ public class Char implements Glyph {
         font = font.deriveFont(((float)(size - 1)));
     }
 
+    public int fontSize() {
+        return font.getSize();
+    }
+    
     public Character getCharacter() {
         return character;
     }
