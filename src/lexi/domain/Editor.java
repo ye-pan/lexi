@@ -1,6 +1,8 @@
 package lexi.domain;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
 
 import lexi.domain.command.Command;
 import lexi.domain.command.CommandManager;
@@ -33,5 +35,16 @@ public class Editor {
 
     public Document getDocument() {
         return document;
+    }
+
+    public void send(Command command) {
+        manager.run(command);
+    }
+
+    public void draw(Graphics graphics, Point start) {
+        for (Glyph glyph : document.getGlyphs()) {
+            glyph.draw(graphics, start);
+            start.x += glyph.getWeight();
+        }
     }
 }

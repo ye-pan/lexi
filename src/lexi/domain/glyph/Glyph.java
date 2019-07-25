@@ -12,4 +12,8 @@ public interface Glyph {
     void incrementSize();
 
     void decrementSize();
+
+    int getWeight();
+
+    int getHeight();
 }

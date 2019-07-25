@@ -62,4 +62,22 @@ public class Char implements Glyph {
     public String toString() {
         return character.toString();
     }
+
+    @Override
+    public int getWeight() {
+        int weight = 0;
+        if(fontMetrics != null) {
+            weight = fontMetrics.charWidth(character);
+        }
+        return weight;
+    }
+
+    @Override
+    public int getHeight() {
+        int height = 0;
+        if(fontMetrics != null) {
+            height = fontMetrics.getHeight();
+        }
+        return height;
+    }
 }
