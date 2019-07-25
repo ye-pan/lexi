@@ -110,7 +110,7 @@ public class DefaultGUIFactory implements GUIFactory {
         Graphics graphics = frame.getGraphics();
         controller.setGraphics(graphics);
 
-        document.removeObserver(new MainFrameObserver(frame));
+        document.registerObserver(new MainFrameObserver(frame));
         return frame;
     }
 
