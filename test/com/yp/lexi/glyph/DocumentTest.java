@@ -1,13 +1,12 @@
-package lexi.domain.glyph;
+package com.yp.lexi.glyph;
 
 import org.junit.Test;
 
-import java.awt.Font;
+import java.awt.*;
 
 import static org.junit.Assert.*;
 
 public class DocumentTest {
-
     @Test
     public void testAddAndRemove() {
         Document document = new Document();

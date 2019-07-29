@@ -1,12 +1,11 @@
-package lexi.swing;
+package com.yp.lexi.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import lexi.domain.Editor;
-import lexi.ui.swing.listener.EditorKeyListener;
+import com.yp.lexi.Editor;
 
 /**
  * Created by Administrator on 2019-7-25.

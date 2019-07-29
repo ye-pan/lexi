@@ -1,4 +1,4 @@
-package lexi.domain.glyph;
+package com.yp.lexi.glyph;
 
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;

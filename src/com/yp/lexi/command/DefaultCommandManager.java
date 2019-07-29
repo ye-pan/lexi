@@ -1,21 +1,22 @@
-package lexi.domain.command;
+package com.yp.lexi.command;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandManager {
+public class DefaultCommandManager implements CommandManager {
 
     private List<Command> commands;
 
     private int current;
 
-    public CommandManager() {
+    public DefaultCommandManager() {
         commands = new ArrayList<>();
         current = -1;
     }
 
-    public boolean run(Command command) {
-        boolean val = command.run() && command.supportUndo();
+    @Override
+    public boolean exec(Command command) {
+        boolean val = command.exec() && command.supportUndo();
         if(val) {
             int size = commands.size();
             for(int i = size - 1; i >= current + 1; i--) {
@@ -27,6 +28,7 @@ public class CommandManager {
         return val;
     }
 
+    @Override
     public void undo() {
         if(couldUndo()) {
             commands.get(current).undo();
@@ -34,18 +36,19 @@ public class CommandManager {
         }
     }
 
+    @Override
     public void redo() {
         if(couldRedo()) {
             current++;
-            commands.get(current).run();
+            commands.get(current).exec();
         }
     }
 
-    public boolean couldUndo() {
+    protected boolean couldUndo() {
         return current > -1;
     }
 
-    public boolean couldRedo() {
+    protected boolean couldRedo() {
         return current < (commands.size() - 1);
     }
 

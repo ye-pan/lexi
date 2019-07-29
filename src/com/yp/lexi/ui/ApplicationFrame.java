@@ -1,4 +1,4 @@
-package lexi.swing;
+package com.yp.lexi.ui;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-import lexi.domain.Editor;
+import com.yp.lexi.Editor;
 
 /**
  * Created by Administrator on 2019-7-25.
@@ -31,8 +31,9 @@ public class ApplicationFrame extends JFrame implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
+    public void keyPressed(KeyEvent keyEvent) {
+        editor.function(keyEvent);
+        repaint(1);
     }
 
     @Override
@@ -44,8 +45,8 @@ public class ApplicationFrame extends JFrame implements KeyListener {
     public void paint(Graphics g) {
         super.paint(g);
         Point start = new Point();
-        start.x = getInsets().left;
-        start.y = getInsets().top;
+        start.x = getInsets().left + 20;
+        start.y = getInsets().top + 10;
         editor.draw(getGraphics(), start);
     }
 }

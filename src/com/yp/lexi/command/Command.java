@@ -1,8 +1,8 @@
-package lexi.domain.command;
+package com.yp.lexi.command;
 
 public interface Command {
 
-    boolean run();
+    boolean exec();
 
     void undo();
 

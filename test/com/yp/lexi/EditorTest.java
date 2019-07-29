@@ -1,16 +1,12 @@
-package lexi.domain;
+package com.yp.lexi;
 
 import org.junit.Test;
 
-import java.awt.Font;
+import java.awt.*;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Administrator on 2019-7-25.
- */
 public class EditorTest {
-
     @Test
     public void testInsertChar() {
         Editor editor = new Editor();

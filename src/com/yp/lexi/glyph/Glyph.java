@@ -1,4 +1,4 @@
-package lexi.domain.glyph;
+package com.yp.lexi.glyph;
 
 import java.awt.Graphics;
 import java.awt.Point;

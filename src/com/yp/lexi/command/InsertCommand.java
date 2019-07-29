@@ -1,7 +1,7 @@
-package lexi.domain.command;
+package com.yp.lexi.command;
 
-import lexi.domain.glyph.Document;
-import lexi.domain.glyph.Glyph;
+import com.yp.lexi.glyph.Document;
+import com.yp.lexi.glyph.Glyph;
 
 public class InsertCommand implements Command {
     private Document document;
@@ -17,7 +17,7 @@ public class InsertCommand implements Command {
     }
 
     @Override
-    public boolean run() {
+    public boolean exec() {
         document.insert(physicalIndex, glyph);
         return true;
     }

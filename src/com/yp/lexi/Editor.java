@@ -1,15 +1,14 @@
-package lexi.domain;
+package com.yp.lexi;
 
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 
-import lexi.domain.command.Command;
-import lexi.domain.command.CommandManager;
-import lexi.domain.command.InsertCommand;
-import lexi.domain.glyph.Char;
-import lexi.domain.glyph.Document;
-import lexi.domain.glyph.Glyph;
+import com.yp.lexi.command.*;
+import com.yp.lexi.glyph.Char;
+import com.yp.lexi.glyph.Document;
+import com.yp.lexi.glyph.Glyph;
 
 public class Editor {
 
@@ -19,7 +18,6 @@ public class Editor {
 
     public Editor() {
         document = new Document();
-        manager = new CommandManager();
     }
 
     public void insertChar(Character character, Font font) {
@@ -30,7 +28,7 @@ public class Editor {
     private void insertGlyph(Glyph glyph) {
         int physicalIndex = document.size();
         Command command = new InsertCommand(document, glyph, physicalIndex);
-        manager.run(command);
+        getManager().exec(command);
     }
 
     public Document getDocument() {
@@ -38,13 +36,28 @@ public class Editor {
     }
 
     public void send(Command command) {
-        manager.run(command);
+        getManager().exec(command);
     }
 
     public void draw(Graphics graphics, Point start) {
         for (Glyph glyph : document.getGlyphs()) {
             glyph.draw(graphics, start);
             start.x += glyph.getWeight();
+        }
+    }
+
+    public CommandManager getManager() {
+        if(manager == null) {
+            manager = new DefaultCommandManager();
+        }
+        return manager;
+    }
+
+    public void function(KeyEvent keyEvent) {
+        if(KeyEvents.isIncrementSize(keyEvent)) {
+            getManager().exec(new IncrementSizeCommand(document));
+        } else if(KeyEvents.isDecrementSize(keyEvent)) {
+            getManager().exec(new DecrementSizeCommand(document));
         }
     }
 }
