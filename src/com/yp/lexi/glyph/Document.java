@@ -2,6 +2,8 @@ package com.yp.lexi.glyph;
 
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Document {
@@ -41,8 +43,13 @@ public class Document {
         glyphs.add(index, glyph);
     }
 
-    public void remove(int index) {
-        glyphs.remove(index);
+    public void insert(int index, List<Glyph> list) {
+        glyphs.addAll(index, list);
+    }
+
+    public Glyph remove(int index) {
+        Preconditions.checkPositionIndex(index, glyphs.size());
+        return glyphs.remove(index);
     }
 
     private void rangeCheck(int start, int end) {
@@ -52,6 +59,6 @@ public class Document {
     }
 
     public List<Glyph> getGlyphs() {
-        return glyphs;
+        return Collections.unmodifiableList(glyphs);
     }
 }

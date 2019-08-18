@@ -58,6 +58,8 @@ public class Editor {
             getManager().exec(new IncrementSizeCommand(document));
         } else if(KeyEvents.isDecrementSize(keyEvent)) {
             getManager().exec(new DecrementSizeCommand(document));
+        } else if(KeyEvents.isDelete(keyEvent)) {
+            getManager().exec(new DeleteCommand(document));
         }
     }
 }
